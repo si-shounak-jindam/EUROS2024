@@ -13,10 +13,13 @@ struct GroupSelector: View {
     @Binding var progress: Double
     @Binding var thirdPlacedCountry: Country?
     
+    @StateObject var scoreSheetViewModel = ScoreSheetViewModel()
+    
+    
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showBottomSheet: Bool = false
-    @State private var showScoreSheet: Bool = false
+    
     
     @State private var countries: [Country] = [
         Country(name: "", imageName: ""),
@@ -25,20 +28,20 @@ struct GroupSelector: View {
         Country(name: "", imageName: "")
     ]
     
-    @State private var scoreSheetDetail: [ScoreSheetModel] = [
-        ScoreSheetModel(name: "Group Stage",
-                        description: "Predict each group's final standing.",
-                        points: "3 pts"),
-        ScoreSheetModel(name: "Knockout rounds",
-                        description: "Predict the winner of each tie.",
-                        points: "3 pts"),
-        ScoreSheetModel(name: "Contenders",
-                        description: "Get a bonus point for each semi-finalist and finalist you get right.",
-                        points: "+1 pt"),
-        ScoreSheetModel(name: "Late or edited bracket",
-                        description: "If you save after the knockout stage has started, you won't get any points.",
-                        points: "0 pts")
-    ]
+//    @State private var scoreSheetDetail: [ScoreSheetModel] = [
+//        ScoreSheetModel(name: "Group Stage",
+//                        description: "Predict each group's final standing.",
+//                        points: "3 pts"),
+//        ScoreSheetModel(name: "Knockout rounds",
+//                        description: "Predict the winner of each tie.",
+//                        points: "3 pts"),
+//        ScoreSheetModel(name: "Contenders",
+//                        description: "Get a bonus point for each semi-finalist and finalist you get right.",
+//                        points: "+1 pt"),
+//        ScoreSheetModel(name: "Late or edited bracket",
+//                        description: "If you save after the knockout stage has started, you won't get any points.",
+//                        points: "0 pts")
+//    ]
     
     @State private var editMode: EditMode = .active
     
@@ -248,7 +251,7 @@ struct GroupSelector: View {
                     Divider()
                     HStack{
                         Button(action: {
-                            showScoreSheet.toggle()
+                            scoreSheetViewModel.showScoreSheet.toggle()
                         }, label: {
                             Text("See how to score points")
                                 .foregroundStyle(.cfsdkAccent1)
@@ -256,8 +259,8 @@ struct GroupSelector: View {
                         .padding()
                         Spacer()
                     }
-                    .sheet(isPresented: $showScoreSheet, content: {
-                        scorePointSheet
+                    .sheet(isPresented: $scoreSheetViewModel.showScoreSheet, content: {
+                        ScorePointSheet()
                             .presentationCornerRadius(20)
                             .presentationDetents([.fraction(0.65)])
                             .presentationDragIndicator(.hidden)
@@ -272,70 +275,7 @@ struct GroupSelector: View {
         .ignoresSafeArea()
     }
     
-    var scorePointSheet: some View {
-        ZStack {
-            FANTASYTheme.getColor(named: .CFSDKPrimary3)
-            VStack {
-                HStack {
-                    Text("How to Score Points")
-                        .font(.title3.bold())
-                        .foregroundStyle(.cfsdkWhite)
-                        .padding([.top, .leading], 20)
-                    Spacer()
-                    Button(action: {
-                        showScoreSheet = false
-                    }, label: {
-                        Image(systemName: "xmark")
-                            .tint(.cfsdkWhite)
-                            .padding([.top, .trailing], 10)
-                    })
-                    
-                }
-                Divider()
-                    .background {
-                        Color.white.opacity(0.5)
-                    }
-                ForEach(scoreSheetDetail.indices, id: \.self) { index in
-                    HStack {
-                        Text(scoreSheetDetail[index].name)
-                            .font(.title3.bold())
-                            .foregroundStyle(.cfsdkWhite)
-                            .padding([.top, .leading], 10)
-                        Spacer()
-                        Text(scoreSheetDetail[index].points)
-                            .font(.title3.bold())
-                            .foregroundStyle(scoreSheetDetail[index].points == "0 pts" ? .cfsdkAccentError: .cfsdkWhite)
-                            .padding([.top, .trailing], 10)
-                    }
-                    HStack{
-                        Text(scoreSheetDetail[index].description)
-                            .font(.subheadline)
-                            .foregroundStyle(.cfsdkWhite).opacity(0.7)
-                            .lineLimit(nil)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Spacer()
-                    }
-                    .padding(.leading,10)
-                    Divider()
-                        .background {
-                            Color.white.opacity(0.5)
-                        }
-                }
-                
-                HStack{
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Read full article")
-                            .foregroundStyle(.cfsdkAccent1)
-                    })
-                    .padding()
-                    Spacer()
-                }
-            }
-        }
-        .ignoresSafeArea()
-    }
+    
 }
 
 
