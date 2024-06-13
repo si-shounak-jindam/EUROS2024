@@ -10,6 +10,7 @@
 		921EACBC2C198AD60032BA45 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACBB2C198AD60032BA45 /* ProgressBar.swift */; };
 		921EACBF2C198B4E0032BA45 /* ScoreSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACBD2C198B4E0032BA45 /* ScoreSheetModel.swift */; };
 		921EACC02C198B4E0032BA45 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACBE2C198B4E0032BA45 /* CountryModel.swift */; };
+		921EACCD2C1AE3670032BA45 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACCC2C1AE3670032BA45 /* GroupViewModel.swift */; };
 		926469232C109C5800C2926B /* ThirdPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469222C109C5800C2926B /* ThirdPlaceView.swift */; };
 		926469252C11901600C2926B /* GroupStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469242C11901600C2926B /* GroupStages.swift */; };
 		9264692A2C11DC1700C2926B /* CFSDKColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469292C11DC1700C2926B /* CFSDKColorName.swift */; };
@@ -61,9 +62,10 @@
 		921EACBB2C198AD60032BA45 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		921EACBD2C198B4E0032BA45 /* ScoreSheetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreSheetModel.swift; sourceTree = "<group>"; };
 		921EACBE2C198B4E0032BA45 /* CountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
+		921EACCC2C1AE3670032BA45 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		926469222C109C5800C2926B /* ThirdPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPlaceView.swift; sourceTree = "<group>"; };
 		926469242C11901600C2926B /* GroupStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStages.swift; sourceTree = "<group>"; };
-		926469292C11DC1700C2926B /* CFSDKColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CFSDKColorName.swift; path = GroupStages/CFSDKColorName.swift; sourceTree = "<group>"; };
+		926469292C11DC1700C2926B /* CFSDKColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFSDKColorName.swift; sourceTree = "<group>"; };
 		92A99F772C0DD2A4005CA5C2 /* EURO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EURO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A99F7A2C0DD2A4005CA5C2 /* EUROApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUROApp.swift; sourceTree = "<group>"; };
 		92A99F7C2C0DD2A4005CA5C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		921EACC32C1ACEDD0032BA45 /* groups */ = {
+			isa = PBXGroup;
+			children = (
+				92A99FB42C0DD699005CA5C2 /* GroupSelector.swift */,
+				921EACCC2C1AE3670032BA45 /* GroupViewModel.swift */,
+			);
+			path = groups;
+			sourceTree = "<group>";
+		};
 		92A99F6E2C0DD2A4005CA5C2 = {
 			isa = PBXGroup;
 			children = (
@@ -149,8 +160,6 @@
 				92A99FBC2C0EFD03005CA5C2 /* GameStarterView.swift */,
 				92A99FBB2C0EF649005CA5C2 /* KnockoutStages */,
 				92A99FB82C0DD818005CA5C2 /* GroupStages */,
-				92A99FB02C0DD4E4005CA5C2 /* CFSDKImageName.swift */,
-				926469292C11DC1700C2926B /* CFSDKColorName.swift */,
 				921EACBE2C198B4E0032BA45 /* CountryModel.swift */,
 				921EACBD2C198B4E0032BA45 /* ScoreSheetModel.swift */,
 				92A99FAF2C0DD4C0005CA5C2 /* Helper */,
@@ -197,6 +206,8 @@
 		92A99FAF2C0DD4C0005CA5C2 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				926469292C11DC1700C2926B /* CFSDKColorName.swift */,
+				92A99FB02C0DD4E4005CA5C2 /* CFSDKImageName.swift */,
 				92A99FC02C0F06E3005CA5C2 /* CFSDKCustomFonts.swift */,
 				92A99FBE2C0F0630005CA5C2 /* RoundedButton.swift */,
 				92A99FAB2C0DD495005CA5C2 /* CachedImageView.swift */,
@@ -209,7 +220,7 @@
 		92A99FB82C0DD818005CA5C2 /* GroupStages */ = {
 			isa = PBXGroup;
 			children = (
-				92A99FB42C0DD699005CA5C2 /* GroupSelector.swift */,
+				921EACC32C1ACEDD0032BA45 /* groups */,
 				926469242C11901600C2926B /* GroupStages.swift */,
 				926469222C109C5800C2926B /* ThirdPlaceView.swift */,
 				921EACBB2C198AD60032BA45 /* ProgressBar.swift */,
@@ -370,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921EACCD2C1AE3670032BA45 /* GroupViewModel.swift in Sources */,
 				92A99FCA2C0F0717005CA5C2 /* CFSDKDouble+Ext.swift in Sources */,
 				92A99FBD2C0EFD03005CA5C2 /* GameStarterView.swift in Sources */,
 				92A99FD02C0F0717005CA5C2 /* View+Extension.swift in Sources */,

@@ -15,12 +15,13 @@ struct KnockoutStages: View {
     
     var body: some View {
         ZStack {
-            Color.blue.opacity(0.5)
+            FANTASYTheme.getColor(named: .groupSheetBlue)
                 .ignoresSafeArea()
             ScrollView([.horizontal, .vertical]) {
                 HStack {
                     VStack {
                         Text("Round of 16")
+                            .foregroundStyle(.cfsdkWhite)
                             .font(.largeTitle)
                             .padding()
                         ForEach(0..<8, id: \.self) { index in
@@ -33,6 +34,7 @@ struct KnockoutStages: View {
                     
                     VStack {
                         Text("Round of 8")
+                            .foregroundStyle(.cfsdkWhite)
                             .font(.largeTitle)
                             .padding()
                         ForEach(0..<4, id: \.self) { index in
@@ -52,6 +54,7 @@ struct KnockoutStages: View {
                     
                     VStack {
                         Text("Semi-Final")
+                            .foregroundStyle(.cfsdkWhite)
                             .font(.largeTitle)
                             .padding()
                         ForEach(0..<2, id: \.self) { index in
@@ -71,6 +74,7 @@ struct KnockoutStages: View {
                     
                     VStack {
                         Text("Final")
+                            .foregroundStyle(.cfsdkWhite)
                             .font(.largeTitle)
                             .padding()
                         if let team1 = selectedTeamsFinal[0], let team2 = selectedTeamsFinal[1] {
@@ -89,6 +93,7 @@ struct KnockoutStages: View {
                     VStack {
                         Text("Winner")
                             .font(.largeTitle)
+                            .foregroundStyle(.cfsdkWhite)
                             .padding()
                         if let team = selectedTeamWinner {
                             Text(team.rawValue)
@@ -111,8 +116,7 @@ struct KnockoutStages: View {
                         moveToNextRound(selectedTeam: firstTeam, round: round, matchIndex: matchIndex, selectedTeams: selectedTeams)
                     }) {
                         HStack {
-                        Image(systemName: "heart.fill")
-                                .accentColor(.black)
+                            FANTASYTheme.getImage(named: .FRA)
                         Text(firstTeam.rawValue)
                                 .foregroundStyle(.black)
                         Spacer()
@@ -123,32 +127,19 @@ struct KnockoutStages: View {
                 .padding(10)
                     
                     Divider()
+                        .background {
+                            Color.white
+                        }
                     
                     if let secondTeam = secondTeam {
-                            Button(action: {
-                                moveToNextRound(selectedTeam: secondTeam, round: round, matchIndex: matchIndex, selectedTeams: selectedTeams)
-                            }) {
-                                HStack {
-                                Image(systemName: "heart.fill")
-                                        .accentColor(.black)
+                        Button(action: {
+                            moveToNextRound(selectedTeam: secondTeam, round: round, matchIndex: matchIndex, selectedTeams: selectedTeams)
+                        }) {
+                            HStack {
+                                FANTASYTheme.getImage(named: .ENG)
                                 Text(secondTeam.rawValue)
-                                        .foregroundStyle(.black)
+                                    .foregroundStyle(.black)
                                 Spacer()
-                                Image(systemName: "circle")
-                                    .accentColor(.black)
-                            }
-                        }
-                        .padding(10)
-                    } else {
-                        HStack {
-                            Image(systemName: "heart.fill")
-                                .accentColor(.black)
-                            
-                            Text("")
-                            Spacer()
-                            Button(action: {
-                                // No action needed for TBD
-                            }) {
                                 Image(systemName: "circle")
                                     .accentColor(.black)
                             }
@@ -157,6 +148,9 @@ struct KnockoutStages: View {
                     }
                     
                     Divider()
+                        .background {
+                            Color.white
+                        }
                     
                     Button(action: {
                         
@@ -177,8 +171,8 @@ struct KnockoutStages: View {
             .overlay {
                 VStack {
                     HStack {
-                        Image(systemName: "heart.fill")
-                        Text("")
+//                        Image(systemName: "heart.fill")
+//                        Text("")
                         Spacer()
                         Button(action: {
                             // No action needed for TBD
@@ -190,11 +184,14 @@ struct KnockoutStages: View {
                     .padding(10)
                     
                     Divider()
+                        .background {
+                            Color.white
+                        }
                     
                     HStack {
-                        Image(systemName: "heart.fill")
-                            .accentColor(.black)
-                        Text("")
+//                        Image(systemName: "heart.fill")
+//                            .accentColor(.black)
+//                        Text("")
                         Spacer()
                         Button(action: {
                             // No action needed for TBD
@@ -206,6 +203,9 @@ struct KnockoutStages: View {
                     .padding(10)
                     
                     Divider()
+                        .background {
+                            Color.white
+                        }
                     
                     Button(action: {
                         
@@ -220,28 +220,30 @@ struct KnockoutStages: View {
     }
     
     func moveToNextRound(selectedTeam: FirstTeam, round: Round, matchIndex: Int, selectedTeams: Binding<[FirstTeam?]>) {
-        switch round {
-        case .roundOf8:
-            // Check if the selected team is already in the round of 8
-            if selectedTeamsRoundOf8.contains(selectedTeam) {
-                // If the team is already in the round of 8, remove it
-                selectedTeamsRoundOf8.removeAll { $0 == selectedTeam }
-            } else {
-                // Otherwise, add the selected team to the round of 8
-                if let emptyIndex = selectedTeamsRoundOf8.firstIndex(where: { $0 == nil }) {
-                    selectedTeamsRoundOf8[emptyIndex] = selectedTeam
+        withAnimation {
+            switch round {
+            case .roundOf8:
+                // Check if the selected team is already in the round of 8
+                if selectedTeamsRoundOf8.contains(selectedTeam) {
+                    // If the team is already in the round of 8, remove it
+                    selectedTeamsRoundOf8.removeAll { $0 == selectedTeam }
+                } else {
+                    // Otherwise, add the selected team to the round of 8
+                    if let emptyIndex = selectedTeamsRoundOf8.firstIndex(where: { $0 == nil }) {
+                        selectedTeamsRoundOf8[emptyIndex] = selectedTeam
+                    }
                 }
+            case .semiFinal:
+                if let index = selectedTeamsRoundOf8.firstIndex(of: selectedTeam) {
+                    selectedTeamsSemiFinal[matchIndex] = selectedTeam
+                }
+            case .final:
+                if let index = selectedTeamsSemiFinal.firstIndex(of: selectedTeam) {
+                    selectedTeamsFinal[matchIndex] = selectedTeam
+                }
+            case .winner:
+                selectedTeamWinner = selectedTeam
             }
-        case .semiFinal:
-            if let index = selectedTeamsRoundOf8.firstIndex(of: selectedTeam) {
-                selectedTeamsSemiFinal[matchIndex] = selectedTeam
-            }
-        case .final:
-            if let index = selectedTeamsSemiFinal.firstIndex(of: selectedTeam) {
-                selectedTeamsFinal[matchIndex] = selectedTeam
-            }
-        case .winner:
-            selectedTeamWinner = selectedTeam
         }
     }
 

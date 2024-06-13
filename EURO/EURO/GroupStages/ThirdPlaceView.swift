@@ -10,31 +10,23 @@ import SwiftUI
 struct ThirdPlaceView: View {
     
     @State private var selectedTeams: Set<String> = []
-    
     @State private var showKnockoutSheet: Bool = false
     
-    let teams = [
-        ("Switzerland", "Group A", "ENG"),
-        ("Finland", "Group B", "ESP"),
-        ("Ukraine", "Group C", "ESP"),
-        ("Czechia", "Group D", "GER"),
-        ("Slovakia", "Group E", "ENG"),
-        ("Portugal", "Group F", "FRA")
-    ]
+    @Binding var thirdPlacedCountries: [String: Country?]
     
     var body: some View {
-        VStack(spacing: 0){
+        VStack(spacing: 0) {
             headerView
                 .background {
                     FANTASYTheme.getColor(named: .thirdPlaceHeader)
                 }
-                .CFSDKcornerRadius(10, corners: [.topLeft,.topRight])
+                .CFSDKcornerRadius(10, corners: [.topLeft, .topRight])
             teamsWithThirdPlace
                 .background {
                     FANTASYTheme.getColor(named: .groupSheetBlue)
                 }
-                .padding(.horizontal,6)
-                .CFSDKcornerRadius(15, corners: [.bottomLeft,.bottomRight])
+                .padding(.horizontal, 6)
+                .CFSDKcornerRadius(15, corners: [.bottomLeft, .bottomRight])
             if selectedTeams.count < 4 {
                 Text("You still need to predict 4 best 3rd-placed teams")
                     .font(.subheadline)
@@ -72,33 +64,34 @@ struct ThirdPlaceView: View {
     
     var teamsWithThirdPlace: some View {
         VStack(spacing: 0) {
-            ForEach(teams, id: \.0) { team in
-                HStack {
-                    Button(action: {
-                        if selectedTeams.contains(team.0) {
-                            selectedTeams.remove(team.0)
-                        } else if selectedTeams.count < 4 {
-                            selectedTeams.insert(team.0)
+            ForEach(thirdPlacedCountries.keys.sorted(), id: \.self) { groupName in
+                if let country = thirdPlacedCountries[groupName] {
+                    HStack {
+                        Button(action: {
+                            if selectedTeams.contains(country?.name ?? .blank) {
+                                selectedTeams.remove(country?.name ?? .blank)
+                            } else if selectedTeams.count < 4 {
+                                selectedTeams.insert(country?.name ?? .blank)
+                            }
+                        }) {
+                            Image(systemName: selectedTeams.contains(country?.name ?? .blank) ? "circle.fill" : "circle")
+                                .foregroundColor(.white)
                         }
-                    }) {
-                        Image(systemName: selectedTeams.contains(team.0) ? "circle.fill" : "circle")
-                            .foregroundColor(.white)
+                        Image(country?.imageName ?? .blank)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .clipShape(Circle())
+                        Text(country?.name ?? .blank)
+                            .foregroundColor(.cfsdkWhite)
+                        Spacer()
+                        Text("Group \(groupName)")
+                            .foregroundColor(.gray)
                     }
-                    Image(team.2)
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .clipShape(.circle)
-                    Text(team.0)
-                        .foregroundColor(.cfsdkWhite)
-                    Spacer()
-                    Text(team.1)
-                        .foregroundColor(.gray)
-                    
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                    Divider()
+                        .background(Color.white)
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                Divider()
-                    .background(Color.white)
             }
         }
     }
@@ -109,10 +102,10 @@ struct ThirdPlaceView: View {
             VStack {
                 Text("Good Work!")
                     .foregroundColor(.cfsdkWhite)
-                Text("Now Lets move on the Knockout Stage!")
+                Text("Now Let's move on to the Knockout Stage!")
                     .foregroundColor(.cfsdkWhite)
                 Button(action: {
-                    
+                    showKnockoutSheet = true
                 }, label: {
                     Text("Continue")
                         .foregroundStyle(.cfsdkNeutral)
@@ -129,6 +122,7 @@ struct ThirdPlaceView: View {
     }
 }
 
-#Preview {
-    ThirdPlaceView()
-}
+
+//#Preview {
+//    ThirdPlaceView()
+//}

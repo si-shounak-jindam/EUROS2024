@@ -9,8 +9,9 @@ import SwiftUI
 
 struct GroupSelector: View {
     
-    @Binding var groupName: String
+    let groupName: String
     @Binding var progress: Double
+    @Binding var thirdPlacedCountry: Country?
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -41,13 +42,8 @@ struct GroupSelector: View {
     
     @State private var editMode: EditMode = .active
     
-    @State private var allTeams: [Country] = [
-        Country(name: "England", imageName: "ENG"),
-        Country(name: "Spain", imageName: "ESP"),
-        Country(name: "Germany", imageName: "GER"),
-        Country(name: "France", imageName: "FRA")
-    ]
     
+    @Binding var allTeams: [Country]
     @State private var popularTeamPrediction: [Country] = [
         Country(name: "England", imageName: "ENG"),
         Country(name: "Spain", imageName: "ESP"),
@@ -59,22 +55,23 @@ struct GroupSelector: View {
         VStack(spacing: 0) {
             if countries.filter({ !$0.name.isEmpty }).count == 4 {
                 successHeaderView
-                    .padding(.horizontal, 0)
                     .background {
                         FANTASYTheme.getColor(named: .groupHeaderBlue)
                     }
             } else {
                 headerView
                     .padding(.vertical, 16)
-                    .padding(.horizontal, 0)
                     .background {
                         FANTASYTheme.getColor(named: .groupHeaderBlue)
                     }
             }
             emptyGroup
-                .padding(.top, 0)
+              
         }
         .environment(\.editMode, $editMode)
+        .onChange(of: countries) { _ in
+                    updateThirdPlacedCountry()
+                }
     }
     
     //MARK: - VIEWS
@@ -138,31 +135,33 @@ struct GroupSelector: View {
     }
     
     var emptyGroup: some View {
-        List {
-            ForEach(countries.indices, id: \.self) { index in
-                HStack {
-                    Text("\(index + 1)")
-                        .foregroundStyle(.cfsdkWhite)
-                    Image(countries[index].imageName)
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .clipShape(Circle())
-                    Text(countries[index].name)
-                        .foregroundStyle(.cfsdkWhite)
-                    
+        VStack {
+            List {
+                ForEach(countries.indices, id: \.self) { index in
+                    HStack {
+                        Text("\(index + 1)")
+                            .foregroundStyle(.cfsdkWhite)
+                        Image(countries[index].imageName)
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .clipShape(Circle())
+                        Text(countries[index].name)
+                            .foregroundStyle(.cfsdkWhite)
+                        
+                    }
                 }
+                .onMove(perform: move)
+                .listRowBackground(FANTASYTheme.getColor(named: .CFSDKPrimary3))
+                HStack {
+                    Spacer()
+                    viewGroupDetailButton
+                    Spacer()
+                }
+                .listRowBackground(FANTASYTheme.getColor(named: .CFSDKPrimary3))
             }
-            .onMove(perform: move)
-            .listRowBackground(FANTASYTheme.getColor(named: .CFSDKPrimary3))
-            HStack {
-                Spacer()
-                viewGroupDetailButton
-                Spacer()
-            }
-            .listRowBackground(FANTASYTheme.getColor(named: .CFSDKPrimary3))
+            .environment(\.editMode, .constant(countries.contains(where: { !$0.name.isEmpty }) ? EditMode.active : EditMode.inactive))
+            .listStyle(PlainListStyle())
         }
-        .environment(\.editMode, .constant(countries.contains(where: { !$0.name.isEmpty }) ? EditMode.active : EditMode.inactive))
-        .listStyle(PlainListStyle())
     }
     
     func move(indices: IndexSet, newOffset: Int) {
@@ -180,11 +179,17 @@ struct GroupSelector: View {
         }
     }
     
+    func updateThirdPlacedCountry() {
+        if countries.count >= 3 {
+            thirdPlacedCountry = countries[2]
+        }   
+    }
+    
     var viewGroupDetailButton: some View {
         Button(action: {
             showBottomSheet.toggle()
         }, label: {
-            Text("View Group A details")
+            Text("View Group \(groupName) details")
                 .foregroundStyle(.cfsdkAccent1)
         })
         .sheet(isPresented: $showBottomSheet, content: {
@@ -204,7 +209,7 @@ struct GroupSelector: View {
             FANTASYTheme.getColor(named: .groupSheetBlue)
             VStack {
                 HStack {
-                    Text("Most popular Group E prediction")
+                    Text("Most popular Group \(groupName) prediction")
                         .font(.subheadline)
                         .foregroundStyle(.cfsdkWhite)
                         .padding([.top, .leading], 10)
