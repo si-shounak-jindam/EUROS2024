@@ -11,6 +11,7 @@ struct ThirdPlaceView: View {
     
     @State private var selectedTeams: Set<String> = []
     @State private var showKnockoutSheet: Bool = false
+    @State private var showKnockoutBracket: Bool = false
     
     @Binding var thirdPlacedCountries: [String: Country?]
     
@@ -105,7 +106,7 @@ struct ThirdPlaceView: View {
                 Text("Now Let's move on to the Knockout Stage!")
                     .foregroundColor(.cfsdkWhite)
                 Button(action: {
-                    showKnockoutSheet = true
+                    showKnockoutBracket = true
                 }, label: {
                     Text("Continue")
                         .foregroundStyle(.cfsdkNeutral)
@@ -116,8 +117,12 @@ struct ThirdPlaceView: View {
                         }
                         .CFSDKcornerRadius(10, corners: .allCorners)
                 })
+               
             }
         }
+        .fullScreenCover(isPresented: $showKnockoutBracket, content: {
+            KnockoutStages()
+        })
         .ignoresSafeArea()
     }
 }
