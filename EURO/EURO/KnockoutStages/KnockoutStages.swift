@@ -13,9 +13,10 @@ struct KnockoutStages: View {
     @State private var selectedTeamsFinal: [FirstTeam?] = Array(repeating: nil, count: 2)
     @State private var selectedTeamWinner: FirstTeam? = nil
     
+    
     var body: some View {
         ZStack {
-            FANTASYTheme.getColor(named: .groupSheetBlue)
+            FANTASYTheme.getColor(named: .CFSDKNeutral)
                 .ignoresSafeArea()
             ScrollView([.horizontal, .vertical]) {
                 HStack {
@@ -32,79 +33,119 @@ struct KnockoutStages: View {
                         }
                     }
                     
-                    VStack {
-                        Text("Round of 8")
-                            .foregroundStyle(.cfsdkWhite)
-                            .font(.largeTitle)
-                            .padding()
-                        ForEach(0..<4, id: \.self) { index in
-                            if let team1 = selectedTeamsRoundOf8[index * 2], let team2 = selectedTeamsRoundOf8[index * 2 + 1] {
-                                rectangle(firstTeam: team1, secondTeam: team2, round: .semiFinal, matchIndex: index, selectedTeams: $selectedTeamsSemiFinal)
-                                    .cornerRadius(20)
-                                    .padding(.horizontal)
-                                    .padding(.bottom, 10)
-                            } else {
-                                emptyRectangle(round: .semiFinal, selectedTeams: $selectedTeamsSemiFinal)
-                                    .cornerRadius(20)
-                                    .padding(.horizontal)
-                                    .padding(.bottom, 10)
-                            }
-                        }
-                    }
-                    
-                    VStack {
-                        Text("Semi-Final")
-                            .foregroundStyle(.cfsdkWhite)
-                            .font(.largeTitle)
-                            .padding()
-                        ForEach(0..<2, id: \.self) { index in
-                            if let team1 = selectedTeamsSemiFinal[index * 2], let team2 = selectedTeamsSemiFinal[index * 2 + 1] {
-                                rectangle(firstTeam: team1, secondTeam: team2, round: .final, matchIndex: index, selectedTeams: $selectedTeamsFinal)
-                                    .cornerRadius(20)
-                                    .padding(.horizontal)
-                                    .padding(.bottom, 10)
-                            } else {
-                                emptyRectangle(round: .final, selectedTeams: $selectedTeamsFinal)
-                                    .cornerRadius(20)
-                                    .padding(.horizontal)
-                                    .padding(.bottom, 10)
-                            }
-                        }
-                    }
-                    
-                    VStack {
-                        Text("Final")
-                            .foregroundStyle(.cfsdkWhite)
-                            .font(.largeTitle)
-                            .padding()
-                        if let team1 = selectedTeamsFinal[0], let team2 = selectedTeamsFinal[1] {
-                            rectangle(firstTeam: team1, secondTeam: team2, round: .winner, matchIndex: 0, selectedTeams: .constant([selectedTeamWinner]))
-                                .cornerRadius(20)
-                                .padding(.horizontal)
-                                .padding(.bottom, 10)
-                        } else {
-                            emptyRectangle(round: .winner, selectedTeams: .constant([selectedTeamWinner]))
-                                .cornerRadius(20)
-                                .padding(.horizontal)
-                                .padding(.bottom, 10)
-                        }
-                    }
-                    
-                    VStack {
-                        Text("Winner")
-                            .font(.largeTitle)
-                            .foregroundStyle(.cfsdkWhite)
-                            .padding()
-                        if let team = selectedTeamWinner {
-                            Text(team.rawValue)
-                                .font(.largeTitle)
-                                .padding()
-                        }
+                    RoundOfEightEmptyView
+                    SemiFinal
+                    Final
+                    Winner
+                }
+            }
+            .scrollTargetLayout()
+            .scrollTargetBehavior(.paging)
+        }
+        
+    }
+    
+    var RoundOfEight: some View {
+            VStack {
+                Text("Round of 8")
+                    .foregroundStyle(.cfsdkWhite)
+                    .font(.largeTitle)
+                    .padding()
+                ForEach(0..<4, id: \.self) { index in
+                    if let team1 = selectedTeamsRoundOf8[index * 2], let team2 = selectedTeamsRoundOf8[index * 2 + 1] {
+                        rectangle(firstTeam: team1, secondTeam: team2, round: .semiFinal, matchIndex: index, selectedTeams: $selectedTeamsSemiFinal)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                            .padding(.bottom, 10)
+                    } else {
+                        emptyRectangle(round: .semiFinal, selectedTeams: $selectedTeamsSemiFinal)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                            .padding(.bottom, 10)
                     }
                 }
             }
         }
+        
+        var RoundOfEightEmptyView: some View {
+            VStack {
+                Text("Round of 8")
+                    .foregroundStyle(.cfsdkWhite)
+                    .font(.largeTitle)
+                    .padding()
+                ForEach(0..<8){ index in
+                    if index % 2 == 0 {
+                        EmptyView()
+                    } else {
+                        Spacer()
+                        emptyRectangle(round: .semiFinal, selectedTeams: $selectedTeamsSemiFinal)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                            .padding(.bottom, 10)
+                        Spacer()
+                        Spacer()
+                    }
+                }
+            }
+        }
+    var SemiFinal: some View {
+        VStack {
+            Text("Semi-Final")
+                .foregroundStyle(.cfsdkWhite)
+                .font(.largeTitle)
+                .padding()
+            ForEach(0..<2, id: \.self) { index in
+                if let team1 = selectedTeamsSemiFinal[index * 2], let team2 = selectedTeamsSemiFinal[index * 2 + 1] {
+                    rectangle(firstTeam: team1, secondTeam: team2, round: .final, matchIndex: index, selectedTeams: $selectedTeamsFinal)
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                } else {
+                    emptyRectangle(round: .final, selectedTeams: $selectedTeamsFinal)
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                }
+            }
+        }
     }
+    
+    var Final: some View {
+        VStack {
+            Text("Final")
+                .foregroundStyle(.cfsdkWhite)
+                .font(.largeTitle)
+                .padding()
+            if let team1 = selectedTeamsFinal[0], let team2 = selectedTeamsFinal[1] {
+                rectangle(firstTeam: team1, secondTeam: team2, round: .winner, matchIndex: 0, selectedTeams: .constant([selectedTeamWinner]))
+                    .cornerRadius(20)
+                    .padding(.horizontal)
+                    .padding(.bottom, 10)
+            } else {
+                emptyRectangle(round: .winner, selectedTeams: .constant([selectedTeamWinner]))
+                    .cornerRadius(20)
+                    .padding(.horizontal)
+                    .padding(.bottom, 10)
+            }
+        }
+    }
+    
+    var Winner: some View {
+        VStack {
+            Text("Winner")
+                .font(.largeTitle)
+                .foregroundStyle(.cfsdkWhite)
+                .padding()
+            if let team = selectedTeamWinner {
+                Text(team.rawValue)
+                    .font(.largeTitle)
+                    .padding()
+            }
+        }
+    }
+    
+
+
     
     func rectangle(firstTeam: FirstTeam, secondTeam: FirstTeam?, round: Round, matchIndex: Int, selectedTeams: Binding<[FirstTeam?]>) -> some View {
         Rectangle()
@@ -219,6 +260,11 @@ struct KnockoutStages: View {
             }
     }
     
+     func calculateOpacity(scrollOffset: Double, width: CGFloat) -> Double {
+           let relativeOffset = scrollOffset / width
+           return max(1 - Double(relativeOffset), 0)
+       }
+    
     func moveToNextRound(selectedTeam: FirstTeam, round: Round, matchIndex: Int, selectedTeams: Binding<[FirstTeam?]>) {
         withAnimation {
             switch round {
@@ -248,12 +294,14 @@ struct KnockoutStages: View {
     }
 
     
-    enum Round {
-        case roundOf8
-        case semiFinal
-        case final
-        case winner
-    }
+    
+}
+
+enum Round {
+    case roundOf8
+    case semiFinal
+    case final
+    case winner
 }
 
 enum FirstTeam: String, CaseIterable, Identifiable {
