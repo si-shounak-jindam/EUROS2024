@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Group {
+struct Groups {
     var name: String
     var countries: [Country]
 }
@@ -15,7 +15,7 @@ struct Group {
 struct GroupStages: View {
     
     @State private var progress: Double = 0
-    @State private var groups: [Group] = [.init(name: "A", countries: Countries.groupA),
+    @State private var groups: [Groups] = [.init(name: "A", countries: Countries.groupA),
                                    .init(name: "B", countries: Countries.groupB),
                                    .init(name: "C", countries: Countries.groupC),
                                    .init(name: "D", countries: Countries.groupD),
