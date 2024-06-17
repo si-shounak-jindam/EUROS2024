@@ -52,7 +52,7 @@ struct CachedImageView<I: View>: View {
                     .opacity(isImageLoaded ? 1.0 : 0.0)
                     .animation(.easeInOut(duration: 0.5), value: 1)
                     .onAppear(perform: { isImageLoaded = true })
-                    .background(.clear)
+                   // .background()
             } else {
                 if let placeHoldeImage = placeHoldeImage as? Image {
                     placeHoldeImage

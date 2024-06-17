@@ -43,15 +43,15 @@ struct GroupSelector: View {
         VStack(spacing: 0) {
             if countries.filter({ !$0.name.isEmpty }).count == 4 {
                 successHeaderView
-                    .background {
+                    .background (
                         FANTASYTheme.getColor(named: .groupHeaderBlue)
-                    }
+                    )
             } else {
                 headerView
                     .padding(.vertical, 16)
-                    .background {
+                    .background (
                         FANTASYTheme.getColor(named: .groupHeaderBlue)
-                    }
+                    )
             }
             emptyGroup
               
@@ -68,7 +68,7 @@ struct GroupSelector: View {
         VStack(spacing: 0) {
             HStack {
                 Text("Group " + "\(groupName)")
-                    .foregroundStyle(.cfsdkAccent1)
+                    .foregroundColor(.cfsdkAccent1)
                 Spacer()
             }
             .padding(.bottom, 10)
@@ -94,7 +94,7 @@ struct GroupSelector: View {
                             }
                         })
                         Text(allTeams[index].name.prefix(3).uppercased())
-                            .foregroundStyle(.cfsdkWhite)
+                            .foregroundColor(.cfsdkWhite)
                     }
                     .disabled(allTeams[index].isSelected)
                 }
@@ -107,13 +107,13 @@ struct GroupSelector: View {
             VStack(spacing: 0) {
                 HStack {
                     Text("Group " + "\(groupName)")
-                        .foregroundStyle(.cfsdkAccent1)
+                        .foregroundColor(.cfsdkAccent1)
                     Spacer()
                 }
                 .padding(.bottom, 10)
                 .padding(.horizontal, 40)
                 Text("Drag teams to re-order")
-                    .foregroundStyle(.cfsdkWhite)
+                    .foregroundColor(.cfsdkWhite)
             }
             FANTASYTheme.getImage(named: .Pattern)?
                 .resizable()
@@ -128,13 +128,13 @@ struct GroupSelector: View {
                 ForEach(countries.indices, id: \.self) { index in
                     HStack {
                         Text("\(index + 1)")
-                            .foregroundStyle(.cfsdkWhite)
+                            .foregroundColor(.cfsdkWhite)
                         Image(countries[index].imageName)
                             .resizable()
                             .frame(width: 25, height: 25)
                             .clipShape(Circle())
                         Text(countries[index].name)
-                            .foregroundStyle(.cfsdkWhite)
+                            .foregroundColor(.cfsdkWhite)
                         
                     }
                 }
@@ -178,85 +178,83 @@ struct GroupSelector: View {
             showBottomSheet.toggle()
         }, label: {
             Text("View Group \(groupName) details")
-                .foregroundStyle(.cfsdkAccent1)
+                .foregroundColor(.cfsdkAccent1)
         })
         .sheet(isPresented: $showBottomSheet, content: {
             bottomSheet
-                .presentationCornerRadius(20)
-                .presentationDetents([.fraction(0.55)])
-                .presentationDragIndicator(.hidden)
-                .background {
-                    FANTASYTheme.getColor(named: .groupSheetBlue)
-                }
+                .clearModalBackground()
+//                .presentationCornerRadius(20)
+//                .presentationDetents([.fraction(0.55)])
+//                .presentationDragIndicator(.hidden)
+//                .background (
+//                    FANTASYTheme.getColor(named: .groupSheetBlue)
+//                )
         })
     }
     
     
     var bottomSheet: some View {
-        ZStack {
-            FANTASYTheme.getColor(named: .groupSheetBlue)
-            VStack {
-                HStack {
-                    Text("Most popular Group \(groupName) prediction")
-                        .font(.subheadline)
-                        .foregroundStyle(.cfsdkWhite)
-                        .padding([.top, .leading], 10)
-                    Spacer()
-                    Button(action: {
-                        showBottomSheet = false
-                    }, label: {
-                        Image(systemName: "xmark")
-                            .tint(.cfsdkWhite)
-                            .padding([.top, .trailing], 10)
-                    })
-                }
-                .background {
-                    FANTASYTheme.getColor(named: .groupSheetBlue)
-                }
-                VStack {
-                    ForEach(popularTeamPrediction.indices, id: \.self) { index in
-                        HStack {
-                            Text("\(index + 1)")
-                                .foregroundStyle(.cfsdkWhite)
-                                .font(.subheadline)
-                            Image(popularTeamPrediction[index].imageName)
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .clipShape(Circle())
-                            Text(popularTeamPrediction[index].name)
-                                .foregroundStyle(.cfsdkWhite)
+        
+        VStack(spacing: 0) {
+            Spacer()
+            VStack() {
+                    HStack {
+                        Text("Most popular Group \(groupName) prediction")
+                            .font(.subheadline)
+                            .foregroundColor(.cfsdkWhite)
+                            .padding([.top, .leading], 10)
+                        Spacer()
+                        Button(action: {
+                            showBottomSheet = false
+                        }, label: {
+                            Image(systemName: "xmark")
+                                .accentColor(.cfsdkWhite)
+                                .padding([.top, .trailing], 10)
+                        })
+                    }
+                    .background (
+                        FANTASYTheme.getColor(named: .groupSheetBlue)
+                    )
+                    VStack {
+                        ForEach(popularTeamPrediction.indices, id: \.self) { index in
+                            HStack {
+                                Text("\(index + 1)")
+                                    .foregroundColor(.cfsdkWhite)
+                                    .font(.subheadline)
+                                Image(popularTeamPrediction[index].imageName)
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .clipShape(Circle())
+                                Text(popularTeamPrediction[index].name)
+                                    .foregroundColor(.cfsdkWhite)
+                                Spacer()
+                            }
+                            .padding()
+                            Divider()
+                                .background (
+                                    Color.white.opacity(0.5)
+                                )
+                        }
+                        Divider()
+                        HStack{
+                            Button(action: {
+                                scoreSheetViewModel.showScoreSheet.toggle()
+                            }, label: {
+                                Text("See how to score points")
+                                    .foregroundColor(.cfsdkAccent1)
+                            })
+                            .padding()
                             Spacer()
                         }
-                        .padding()
-                        Divider()
-                            .background {
-                                Color.white.opacity(0.5)
-                            }
-                    }
-                    Divider()
-                    HStack{
-                        Button(action: {
-                            scoreSheetViewModel.showScoreSheet.toggle()
-                        }, label: {
-                            Text("See how to score points")
-                                .foregroundStyle(.cfsdkAccent1)
+                        .sheet(isPresented: $scoreSheetViewModel.showScoreSheet, content: {
+                            ScorePointSheet()
+                                .clearModalBackground()
                         })
-                        .padding()
-                        Spacer()
                     }
-                    .sheet(isPresented: $scoreSheetViewModel.showScoreSheet, content: {
-                        ScorePointSheet()
-                            .presentationCornerRadius(20)
-                            .presentationDetents([.fraction(0.65)])
-                            .presentationDragIndicator(.hidden)
-                            .background {
-                                FANTASYTheme.getColor(named: .groupSheetBlue)
-                            }
-                    })
+                    
                 }
-                
-            }
+            .background(FANTASYTheme.getColor(named: .groupSheetBlue))
         }
-        .ignoresSafeArea()
+        .edgesIgnoringSafeArea(.bottom)
     }
 }

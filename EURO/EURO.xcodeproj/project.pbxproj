@@ -13,6 +13,8 @@
 		921EACCD2C1AE3670032BA45 /* GroupSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACCC2C1AE3670032BA45 /* GroupSelectorViewModel.swift */; };
 		921EACCF2C1B32B10032BA45 /* ScoreSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACCE2C1B32B10032BA45 /* ScoreSheetViewModel.swift */; };
 		921EACD12C1B336D0032BA45 /* ScorePointSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACD02C1B336D0032BA45 /* ScorePointSheet.swift */; };
+		921EACD62C2016BF0032BA45 /* KnockoutPOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */; };
+		921EACDA2C20689A0032BA45 /* ClearModalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACD92C20689A0032BA45 /* ClearModalModifier.swift */; };
 		926469232C109C5800C2926B /* ThirdPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469222C109C5800C2926B /* ThirdPlaceView.swift */; };
 		926469252C11901600C2926B /* GroupStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469242C11901600C2926B /* GroupStages.swift */; };
 		9264692A2C11DC1700C2926B /* CFSDKColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469292C11DC1700C2926B /* CFSDKColorName.swift */; };
@@ -67,6 +69,8 @@
 		921EACCC2C1AE3670032BA45 /* GroupSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectorViewModel.swift; sourceTree = "<group>"; };
 		921EACCE2C1B32B10032BA45 /* ScoreSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSheetViewModel.swift; sourceTree = "<group>"; };
 		921EACD02C1B336D0032BA45 /* ScorePointSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePointSheet.swift; sourceTree = "<group>"; };
+		921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnockoutPOC.swift; sourceTree = "<group>"; };
+		921EACD92C20689A0032BA45 /* ClearModalModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearModalModifier.swift; sourceTree = "<group>"; };
 		926469222C109C5800C2926B /* ThirdPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPlaceView.swift; sourceTree = "<group>"; };
 		926469242C11901600C2926B /* GroupStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStages.swift; sourceTree = "<group>"; };
 		926469292C11DC1700C2926B /* CFSDKColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFSDKColorName.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 				92A99FB02C0DD4E4005CA5C2 /* CFSDKImageName.swift */,
 				92A99FC02C0F06E3005CA5C2 /* CFSDKCustomFonts.swift */,
 				92A99FBE2C0F0630005CA5C2 /* RoundedButton.swift */,
+				921EACD92C20689A0032BA45 /* ClearModalModifier.swift */,
 				92A99FAB2C0DD495005CA5C2 /* CachedImageView.swift */,
 				92A99FB62C0DD7BB005CA5C2 /* FantasyTheme.swift */,
 				92A99FA82C0DD46A005CA5C2 /* Shapes */,
@@ -246,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				92A99FB92C0EF63F005CA5C2 /* KnockoutStages.swift */,
+				921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */,
 			);
 			path = KnockoutStages;
 			sourceTree = "<group>";
@@ -403,6 +409,7 @@
 				92A99FCC2C0F0717005CA5C2 /* Date+Ext.swift in Sources */,
 				92A99FBA2C0EF63F005CA5C2 /* KnockoutStages.swift in Sources */,
 				921EACBF2C198B4E0032BA45 /* ScoreSheetModel.swift in Sources */,
+				921EACDA2C20689A0032BA45 /* ClearModalModifier.swift in Sources */,
 				92A99FAA2C0DD46A005CA5C2 /* RoundedCorner.swift in Sources */,
 				92A99FA92C0DD46A005CA5C2 /* PlayerCardLeadingBackground.swift in Sources */,
 				921EACBC2C198AD60032BA45 /* ProgressBar.swift in Sources */,
@@ -415,6 +422,7 @@
 				92A99FAC2C0DD495005CA5C2 /* CachedImageView.swift in Sources */,
 				92A99FCD2C0F0717005CA5C2 /* Encodable+Ext.swift in Sources */,
 				92A99F7D2C0DD2A4005CA5C2 /* ContentView.swift in Sources */,
+				921EACD62C2016BF0032BA45 /* KnockoutPOC.swift in Sources */,
 				9264692A2C11DC1700C2926B /* CFSDKColorName.swift in Sources */,
 				92A99FCF2C0F0717005CA5C2 /* URLRequest+Ext.swift in Sources */,
 				926469252C11901600C2926B /* GroupStages.swift in Sources */,
@@ -593,7 +601,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,7 +630,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -12,6 +12,7 @@ struct KnockoutStages: View {
     @State private var selectedTeamsSemiFinal: [FirstTeam?] = Array(repeating: nil, count: 4)
     @State private var selectedTeamsFinal: [FirstTeam?] = Array(repeating: nil, count: 2)
     @State private var selectedTeamWinner: FirstTeam? = nil
+    @State private var isTouched: Bool = false
     
     
     var body: some View {
@@ -22,7 +23,7 @@ struct KnockoutStages: View {
                 HStack {
                     VStack {
                         Text("Round of 16")
-                            .foregroundStyle(.cfsdkWhite)
+                            .foregroundColor(.cfsdkWhite)
                             .font(.largeTitle)
                             .padding()
                         ForEach(0..<8, id: \.self) { index in
@@ -34,21 +35,30 @@ struct KnockoutStages: View {
                     }
                     
                     RoundOfEightEmptyView
-                    SemiFinal
+//                        .scrollTransition { content, phase in
+//                            content
+//                                .opacity(phase.isIdentity ? 1 : 0.3)
+//                                .scaleEffect(x: phase.isIdentity ? 2.0 : 0.3,
+//                                             y: phase.isIdentity ? 1.0 : 0.3)
+//                        }
+                    SemiFinalWithEmptyView
+                    //SemiFinal
                     Final
                     Winner
                 }
             }
-            .scrollTargetLayout()
-            .scrollTargetBehavior(.paging)
+//            .scrollTargetLayout()
+//            .scrollTargetBehavior(.paging)
+            .onTapGesture {
+                isTouched = true
+            }
         }
-        
     }
     
     var RoundOfEight: some View {
             VStack {
                 Text("Round of 8")
-                    .foregroundStyle(.cfsdkWhite)
+                    .foregroundColor(.cfsdkWhite)
                     .font(.largeTitle)
                     .padding()
                 ForEach(0..<4, id: \.self) { index in
@@ -70,7 +80,7 @@ struct KnockoutStages: View {
         var RoundOfEightEmptyView: some View {
             VStack {
                 Text("Round of 8")
-                    .foregroundStyle(.cfsdkWhite)
+                    .foregroundColor(.cfsdkWhite)
                     .font(.largeTitle)
                     .padding()
                 ForEach(0..<8){ index in
@@ -91,7 +101,7 @@ struct KnockoutStages: View {
     var SemiFinal: some View {
         VStack {
             Text("Semi-Final")
-                .foregroundStyle(.cfsdkWhite)
+                .foregroundColor(.cfsdkWhite)
                 .font(.largeTitle)
                 .padding()
             ForEach(0..<2, id: \.self) { index in
@@ -110,10 +120,37 @@ struct KnockoutStages: View {
         }
     }
     
+    var SemiFinalWithEmptyView: some View {
+        VStack {
+            Text("Semi-Final")
+                .foregroundColor(.cfsdkWhite)
+                .font(.largeTitle)
+                .padding()
+            ForEach(0..<2, id: \.self) { index in
+                Spacer(minLength: isTouched ? 100 : 0)
+                if let team1 = selectedTeamsSemiFinal[index * 2], let team2 = selectedTeamsSemiFinal[index * 2 + 1] {
+                    
+                    rectangle(firstTeam: team1, secondTeam: team2, round: .final, matchIndex: index, selectedTeams: $selectedTeamsFinal)
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                    
+                    
+                } else {
+                    emptyRectangle(round: .final, selectedTeams: $selectedTeamsFinal)
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                }
+                Spacer(minLength: isTouched ? 100 : 0)
+            }
+        }
+    }
+    
     var Final: some View {
         VStack {
             Text("Final")
-                .foregroundStyle(.cfsdkWhite)
+                .foregroundColor(.cfsdkWhite)
                 .font(.largeTitle)
                 .padding()
             if let team1 = selectedTeamsFinal[0], let team2 = selectedTeamsFinal[1] {
@@ -134,7 +171,7 @@ struct KnockoutStages: View {
         VStack {
             Text("Winner")
                 .font(.largeTitle)
-                .foregroundStyle(.cfsdkWhite)
+                .foregroundColor(.cfsdkWhite)
                 .padding()
             if let team = selectedTeamWinner {
                 Text(team.rawValue)
@@ -151,7 +188,7 @@ struct KnockoutStages: View {
         Rectangle()
             .foregroundColor(.blue).opacity(0.5)
             .frame(width: 300, height: 150, alignment: .center)
-            .overlay {
+            .overlay (
                 VStack {
                     Button(action: {
                         moveToNextRound(selectedTeam: firstTeam, round: round, matchIndex: matchIndex, selectedTeams: selectedTeams)
@@ -159,7 +196,7 @@ struct KnockoutStages: View {
                         HStack {
                             FANTASYTheme.getImage(named: .FRA)
                         Text(firstTeam.rawValue)
-                                .foregroundStyle(.black)
+                                .foregroundColor(.black)
                         Spacer()
                         Image(systemName: "circle")
                             .accentColor(.black)
@@ -168,9 +205,9 @@ struct KnockoutStages: View {
                 .padding(10)
                     
                     Divider()
-                        .background {
+                        .background (
                             Color.white
-                        }
+                        )
                     
                     if let secondTeam = secondTeam {
                         Button(action: {
@@ -179,7 +216,7 @@ struct KnockoutStages: View {
                             HStack {
                                 FANTASYTheme.getImage(named: .ENG)
                                 Text(secondTeam.rawValue)
-                                    .foregroundStyle(.black)
+                                    .foregroundColor(.black)
                                 Spacer()
                                 Image(systemName: "circle")
                                     .accentColor(.black)
@@ -189,9 +226,9 @@ struct KnockoutStages: View {
                     }
                     
                     Divider()
-                        .background {
+                        .background (
                             Color.white
-                        }
+                        )
                     
                     Button(action: {
                         
@@ -202,14 +239,14 @@ struct KnockoutStages: View {
                     }
                 }
                 .padding(.bottom, 10)
-            }
+            )
     }
     
     func emptyRectangle(round: Round, selectedTeams: Binding<[FirstTeam?]>) -> some View {
         Rectangle()
             .foregroundColor(.blue).opacity(0.5)
             .frame(width: 300, height: 150, alignment: .center)
-            .overlay {
+            .overlay (
                 VStack {
                     HStack {
 //                        Image(systemName: "heart.fill")
@@ -225,9 +262,9 @@ struct KnockoutStages: View {
                     .padding(10)
                     
                     Divider()
-                        .background {
+                        .background (
                             Color.white
-                        }
+                        )
                     
                     HStack {
 //                        Image(systemName: "heart.fill")
@@ -244,9 +281,9 @@ struct KnockoutStages: View {
                     .padding(10)
                     
                     Divider()
-                        .background {
+                        .background (
                             Color.white
-                        }
+                        )
                     
                     Button(action: {
                         
@@ -257,7 +294,7 @@ struct KnockoutStages: View {
                     }
                 }
                 .padding(.bottom, 10)
-            }
+            )
     }
     
      func calculateOpacity(scrollOffset: Double, width: CGFloat) -> Double {

@@ -48,7 +48,7 @@ struct OnboardingView: View {
             
             Text(title)
                 .font(.headline.bold())
-                .foregroundStyle(.cfsdkWhite)
+                .foregroundColor(.cfsdkWhite)
             
             Text(desciption)
                 .multilineTextAlignment(.center)

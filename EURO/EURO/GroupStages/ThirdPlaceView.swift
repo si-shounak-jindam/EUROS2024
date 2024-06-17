@@ -18,31 +18,31 @@ struct ThirdPlaceView: View {
     var body: some View {
         VStack(spacing: 0) {
             headerView
-                .background {
+                .background (
                     FANTASYTheme.getColor(named: .thirdPlaceHeader)
-                }
+                )
                 .CFSDKcornerRadius(10, corners: [.topLeft, .topRight])
             teamsWithThirdPlace
-                .background {
+                .background (
                     FANTASYTheme.getColor(named: .groupSheetBlue)
-                }
+                )
                 .padding(.horizontal, 6)
                 .CFSDKcornerRadius(15, corners: [.bottomLeft, .bottomRight])
             if selectedTeams.count < 4 {
                 Text("You still need to predict 4 best 3rd-placed teams")
                     .font(.subheadline)
-                    .foregroundStyle(.gray)
+                    .foregroundColor(.gray)
                     .padding(.top, 20)
             }
         }
         .sheet(isPresented: $showKnockoutSheet) {
             knockoutStageBottomSheet
-                .presentationCornerRadius(20)
-                .presentationDetents([.fraction(0.2)])
-                .presentationDragIndicator(.hidden)
-                .background {
+//                .presentationCornerRadius(20)
+//                .presentationDetents([.fraction(0.2)])
+//                .presentationDragIndicator(.hidden)
+                .background (
                     FANTASYTheme.getColor(named: .groupSheetBlue)
-                }
+                )
         }
         .onChange(of: selectedTeams) { newValue in
             if newValue.count == 4 {
@@ -55,10 +55,10 @@ struct ThirdPlaceView: View {
         VStack(spacing: 10) {
             Text("Predict the four best third-placed teams")
                 .font(.title3)
-                .foregroundStyle(.cfsdkWhite)
+                .foregroundColor(.cfsdkWhite)
             Text("The four with the most points will progress to the knockout stage")
                 .font(.subheadline)
-                .foregroundStyle(.cfsdkWhite)
+                .foregroundColor(.cfsdkWhite)
         }
         .padding()
     }
@@ -109,12 +109,12 @@ struct ThirdPlaceView: View {
                     showKnockoutBracket = true
                 }, label: {
                     Text("Continue")
-                        .foregroundStyle(.cfsdkNeutral)
+                        .foregroundColor(.cfsdkNeutral)
                         .padding(.horizontal, 140)
                         .padding(.vertical, 15)
-                        .background {
+                        .background (
                             FANTASYTheme.getColor(named: .CFSDKAccent1)
-                        }
+                        )
                         .CFSDKcornerRadius(10, corners: .allCorners)
                 })
                
