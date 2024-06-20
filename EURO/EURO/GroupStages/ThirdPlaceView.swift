@@ -121,7 +121,7 @@ struct ThirdPlaceView: View {
             }
         }
         .fullScreenCover(isPresented: $showKnockoutBracket, content: {
-            KnockoutStages()
+            KnockoutPOC()
         })
         .ignoresSafeArea()
     }

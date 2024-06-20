@@ -183,18 +183,11 @@ struct GroupSelector: View {
         .sheet(isPresented: $showBottomSheet, content: {
             bottomSheet
                 .clearModalBackground()
-//                .presentationCornerRadius(20)
-//                .presentationDetents([.fraction(0.55)])
-//                .presentationDragIndicator(.hidden)
-//                .background (
-//                    FANTASYTheme.getColor(named: .groupSheetBlue)
-//                )
         })
     }
     
     
     var bottomSheet: some View {
-        
         VStack(spacing: 0) {
             Spacer()
             VStack() {

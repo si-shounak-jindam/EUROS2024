@@ -19,32 +19,23 @@ struct KnockoutStages: View {
         ZStack {
             FANTASYTheme.getColor(named: .CFSDKNeutral)
                 .ignoresSafeArea()
-            ScrollView([.horizontal, .vertical]) {
-                HStack {
-                    VStack {
-                        Text("Round of 16")
-                            .foregroundColor(.cfsdkWhite)
-                            .font(.largeTitle)
-                            .padding()
-                        ForEach(0..<8, id: \.self) { index in
-                            rectangle(firstTeam: FirstTeam.allCases[index * 2], secondTeam: FirstTeam.allCases[index * 2 + 1], round: .roundOf8, matchIndex: index, selectedTeams: $selectedTeamsRoundOf8)
-                                .cornerRadius(20)
-                                .padding(.horizontal)
-                                .padding(.bottom, 10)
-                        }
+            GeometryReader { geometry in
+                ScrollView([.horizontal, .vertical]) {
+                    HStack {
+                        RoundOf16View
+                        RoundOfEightEmptyView
+                        SemiFinalWithEmptyView
+                        //SemiFinal
+                        Final
+                        Winner
+                        // .frame(width: 100, height: 400)
+    //                        .scrollTransition { content, phase in
+    //                            content
+    //                                .opacity(phase.isIdentity ? 1 : 0.3)
+    //                                .scaleEffect(x: phase.isIdentity ? 2.0 : 0.3,
+    //                                             y: phase.isIdentity ? 1.0 : 0.3)
+    //                        }
                     }
-                    
-                    RoundOfEightEmptyView
-//                        .scrollTransition { content, phase in
-//                            content
-//                                .opacity(phase.isIdentity ? 1 : 0.3)
-//                                .scaleEffect(x: phase.isIdentity ? 2.0 : 0.3,
-//                                             y: phase.isIdentity ? 1.0 : 0.3)
-//                        }
-                    SemiFinalWithEmptyView
-                    //SemiFinal
-                    Final
-                    Winner
                 }
             }
 //            .scrollTargetLayout()
@@ -116,6 +107,21 @@ struct KnockoutStages: View {
                         .padding(.horizontal)
                         .padding(.bottom, 10)
                 }
+            }
+        }
+    }
+    
+    var RoundOf16View: some View{
+        VStack {
+            Text("Round of 16")
+                .foregroundColor(.cfsdkWhite)
+                .font(.largeTitle)
+                .padding()
+            ForEach(0..<8, id: \.self) { index in
+                rectangle(firstTeam: FirstTeam.allCases[index * 2], secondTeam: FirstTeam.allCases[index * 2 + 1], round: .roundOf8, matchIndex: index, selectedTeams: $selectedTeamsRoundOf8)
+                    .cornerRadius(20)
+                    .padding(.horizontal)
+                    .padding(.bottom, 10)
             }
         }
     }
