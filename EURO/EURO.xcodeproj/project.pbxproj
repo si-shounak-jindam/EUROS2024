@@ -16,6 +16,8 @@
 		921EACD62C2016BF0032BA45 /* KnockoutPOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */; };
 		921EACDA2C20689A0032BA45 /* ClearModalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACD92C20689A0032BA45 /* ClearModalModifier.swift */; };
 		921EACDE2C230B960032BA45 /* KnockoutPOC3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACDD2C230B960032BA45 /* KnockoutPOC3.swift */; };
+		921EACE52C25720D0032BA45 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACE42C25720D0032BA45 /* MatchView.swift */; };
+		921EACE72C25725A0032BA45 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACE62C25725A0032BA45 /* RadioButton.swift */; };
 		926469232C109C5800C2926B /* ThirdPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469222C109C5800C2926B /* ThirdPlaceView.swift */; };
 		926469252C11901600C2926B /* GroupStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469242C11901600C2926B /* GroupStages.swift */; };
 		9264692A2C11DC1700C2926B /* CFSDKColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469292C11DC1700C2926B /* CFSDKColorName.swift */; };
@@ -73,6 +75,8 @@
 		921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnockoutPOC.swift; sourceTree = "<group>"; };
 		921EACD92C20689A0032BA45 /* ClearModalModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearModalModifier.swift; sourceTree = "<group>"; };
 		921EACDD2C230B960032BA45 /* KnockoutPOC3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnockoutPOC3.swift; sourceTree = "<group>"; };
+		921EACE42C25720D0032BA45 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		921EACE62C25725A0032BA45 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		926469222C109C5800C2926B /* ThirdPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPlaceView.swift; sourceTree = "<group>"; };
 		926469242C11901600C2926B /* GroupStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStages.swift; sourceTree = "<group>"; };
 		926469292C11DC1700C2926B /* CFSDKColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFSDKColorName.swift; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 			children = (
 				92A99FB92C0EF63F005CA5C2 /* KnockoutStages.swift */,
 				921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */,
+				921EACE42C25720D0032BA45 /* MatchView.swift */,
+				921EACE62C25725A0032BA45 /* RadioButton.swift */,
 				921EACDD2C230B960032BA45 /* KnockoutPOC3.swift */,
 			);
 			path = KnockoutStages;
@@ -422,6 +428,7 @@
 				92A99FBF2C0F0630005CA5C2 /* RoundedButton.swift in Sources */,
 				921EACDE2C230B960032BA45 /* KnockoutPOC3.swift in Sources */,
 				92A99FC12C0F06E3005CA5C2 /* CFSDKCustomFonts.swift in Sources */,
+				921EACE52C25720D0032BA45 /* MatchView.swift in Sources */,
 				92A99FCE2C0F0717005CA5C2 /* Task+Ext.swift in Sources */,
 				92A99FAC2C0DD495005CA5C2 /* CachedImageView.swift in Sources */,
 				92A99FCD2C0F0717005CA5C2 /* Encodable+Ext.swift in Sources */,
@@ -434,6 +441,7 @@
 				92A99FB72C0DD7BB005CA5C2 /* FantasyTheme.swift in Sources */,
 				92A99F7B2C0DD2A4005CA5C2 /* EUROApp.swift in Sources */,
 				926469232C109C5800C2926B /* ThirdPlaceView.swift in Sources */,
+				921EACE72C25725A0032BA45 /* RadioButton.swift in Sources */,
 				921EACC02C198B4E0032BA45 /* CountryModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
