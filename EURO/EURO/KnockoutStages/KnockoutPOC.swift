@@ -13,39 +13,7 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
     }
 }
 
-struct RadioButton: View {
-    @Binding var selectedOption: String
-    var label: String?
-
-    var body: some View {
-        HStack(alignment: .center) {
-            if let label = label {
-                Text(label)
-                    .font(.headline)
-                    .foregroundColor(.white)
-            }
-            Spacer()
-            Image(systemName: selectedOption == label ? "largecircle.fill.circle" : "circle")
-                .resizable()
-                .frame(width: 20, height: 20)
-                .foregroundColor(.yellow)
-        }
-        .padding(.horizontal, 5)
-        .background(
-            Color.black.opacity(0.01)
-                .onTapGesture {
-                    if selectedOption == label {
-                        self.selectedOption = String()
-                    } else {
-                        self.selectedOption = self.label ?? String()
-                    }
-                }
-        )
-        .frame(height: 40)
-    }
-}
-
-struct Match: Hashable {
+struct Matches: Hashable {
     let id = UUID()
     var team1: Team?
     var team2: Team?
@@ -56,72 +24,12 @@ struct Team: Hashable {
 }
 
 struct MatchSet {
-    let set: [Match]
-}
-
-struct MatchView: View {
-    let showLeftLine: Bool
-    let showRightLine: Bool
-    let spacing: CGFloat
-    let index: Int
-    let match: Match
-    
-    @Binding var teamOneSelection: String
-    @Binding var teamTwoSelection: String
-    
-    var body: some View {
-        VStack(alignment: .center, spacing: .zero) {
-            RadioButton(selectedOption: $teamOneSelection, label: match.team1?.name)
-            Color.white.frame(height: 0.5)
-            RadioButton(selectedOption: $teamTwoSelection, label: match.team2?.name)
-            Color.white.frame(height: 0.5)
-            Button(action: {
-                // Action for view details
-            }) {
-                Text("View details")
-                    .font(.body)
-                    .foregroundColor(.yellow)
-            }
-            .padding(10)
-            .frame(height: 40)
-        }
-        .background(Color.blue.opacity(0.8))
-        .cornerRadius(10)
-        .padding(.vertical, 10)
-        .padding(.vertical, spacing)
-        .padding(.trailing, showRightLine ? 25 : .zero)
-        .padding(.leading, showLeftLine ? 25 : .zero)
-        .overlay(
-            VStack(spacing: .zero) {
-                HStack {
-                    Spacer()
-                    (index % 2 == .zero ? Color.clear : Color.white)
-                        .frame(width: 0.5)
-                }
-                .frame(height: 50 + max(spacing, -50))
-                Color.white.frame(height: 0.5)
-                
-                HStack {
-                    Spacer()
-                    if showRightLine {
-                        ((index % 2 != .zero) ? Color.clear : Color.white)
-                            .frame(width: 0.5)
-                    } else {
-                        Color.clear
-                            .frame(width: 0.5)
-                    }
-                }
-            }
-        )
-        .padding(.leading, showLeftLine ? .zero : 25)
-        .padding(.trailing, showRightLine ? .zero : 25)
-        .frame(width: 325)
-    }
+    let set: [Matches]
 }
 
 struct MatchColumnView: View {
     let elements: Int
-    let rounds: [Match]
+    let rounds: [Matches]
     @Binding var selectedTeamsFromFirstRound: [Int: String]
     let spacing: (Int) -> CGFloat
     
@@ -164,15 +72,23 @@ struct KnockoutPOC: View {
     
     @State private var selectedTeamsFromFirstRound: [Int: String] = [:]
     
-    let rounds: [Match] = [
-        Match(team1: Team(name: "Albania"), team2: Team(name: "Hungary")),
-        Match(team1: Team(name: "Scotland"), team2: Team(name: "Serbia")),
-        Match(team1: Team(name: "Türkiye"), team2: Team(name: "Denmark")),
-        Match(team1: Team(name: "Poland"), team2: Team(name: "Belgium")),
-        Match(team1: Team(name: "India"), team2: Team(name: "Pakistan")),
-        Match(team1: Team(name: "Mumbai"), team2: Team(name: "Gujarat")),
-        Match(team1: Team(name: "America"), team2: Team(name: "Honey")),
-        Match(team1: Team(name: "Mister"), team2: Team(name: "Perfect"))
+    let rounds: [Matches] = [
+        Matches(team1: Team(name: ""),
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: "")),
+        Matches(team1: Team(name: ""), 
+                team2: Team(name: ""))
     ]
     
     @State private var offset: CGFloat = .zero

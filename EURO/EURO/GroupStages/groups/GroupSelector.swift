@@ -12,6 +12,8 @@ struct GroupSelector: View {
     let groupName: String
     @Binding var progress: Double
     @Binding var thirdPlacedCountry: Country?
+    @Binding var secondPlacedCountry: Country?
+    @Binding var firstPlacedCountry: Country?
     
     @StateObject var scoreSheetViewModel = ScoreSheetViewModel()
     
@@ -59,6 +61,8 @@ struct GroupSelector: View {
         .environment(\.editMode, $editMode)
         .onChange(of: countries) { _ in
                     updateThirdPlacedCountry()
+                    updateFirstPlacedCountry()
+                    updateSecondPlacedCountry()
                 }
     }
     
@@ -171,6 +175,18 @@ struct GroupSelector: View {
         if countries.count >= 3 {
             thirdPlacedCountry = countries[2]
         }   
+    }
+    
+    func updateFirstPlacedCountry() {
+        if countries.count >= 1 {
+            thirdPlacedCountry = countries[0]
+        }
+    }
+    
+    func updateSecondPlacedCountry() {
+        if countries.count >= 2 {
+            thirdPlacedCountry = countries[1]
+        }
     }
     
     var viewGroupDetailButton: some View {

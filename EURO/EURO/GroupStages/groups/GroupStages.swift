@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Groups {
+struct Groups: Equatable {
     var name: String
     var countries: [Country]
 }
@@ -15,16 +15,36 @@ struct Groups {
 struct GroupStages: View {
     
     @State private var progress: Double = 0
-    @State private var groups: [Groups] = [.init(name: "A", countries: Countries.groupA),
-                                   .init(name: "B", countries: Countries.groupB),
-                                   .init(name: "C", countries: Countries.groupC),
-                                   .init(name: "D", countries: Countries.groupD),
-                                   .init(name: "E", countries: Countries.groupE),
-                                   .init(name: "F", countries: Countries.groupF)
-                                          
+    @State private var groups: [Groups] = [.init(name: "A", countries:                                                       Countries.groupA),
+                                           .init(name: "B", countries: Countries.groupB),
+                                           .init(name: "C", countries: Countries.groupC),
+                                           .init(name: "D", countries: Countries.groupD),
+                                           .init(name: "E", countries: Countries.groupE),
+                                           .init(name: "F", countries: Countries.groupF)
+                                           
     ]
     
     @State private var thirdPlacedCountries: [String: Country?] = ["A": nil, "B": nil, "C": nil, "D": nil, "E": nil, "F": nil]
+    
+    @State private var firstPlacedTeams: [String: Country] = [:]
+    @State private var secondPlacedTeams: [String: Country] = [:]
+    
+    private func updatePlacedTeams() {
+        var firstTeams = [String: Country]()
+        var secondTeams = [String: Country]()
+        
+        for group in groups {
+            if let firstCountry = group.countries.first {
+                firstTeams[group.name] = firstCountry
+            }
+            if group.countries.count > 1 {
+                secondTeams[group.name] = group.countries[1]
+            }
+        }
+        
+        firstPlacedTeams = firstTeams
+        secondPlacedTeams = secondTeams
+    }
         
 
     
@@ -42,6 +62,12 @@ struct GroupStages: View {
                 groupsView
             }
         }
+        .onAppear {
+            updatePlacedTeams()
+        }
+        .onChange(of: groups) { _ in
+            updatePlacedTeams()
+        }
     }
     
     var groupsView: some View {
@@ -51,6 +77,8 @@ struct GroupStages: View {
                     GroupSelector(groupName: group.name.wrappedValue,
                                   progress: $progress,
                                   thirdPlacedCountry: bindingForThirdPlacedCountry(groupName: group.name.wrappedValue),
+                                  secondPlacedCountry: bindingForSecondPlacedCountry(groupName: group.name.wrappedValue),
+                                  firstPlacedCountry: bindingForThirdPlacedCountry(groupName: group.name.wrappedValue),
                                      allTeams: group.countries)
                         .CFSDKcornerRadius(15, corners: .allCorners)
                         .frame(height: 350)
@@ -63,15 +91,36 @@ struct GroupStages: View {
     }
     
     private func bindingForThirdPlacedCountry(groupName: String) -> Binding<Country?> {
-            return Binding<Country?>(
-                get: {
-                    return thirdPlacedCountries[groupName] ?? nil
-                },
-                set: { newValue in
-                    thirdPlacedCountries[groupName] = newValue
-                }
-            )
-        }
+        return Binding<Country?>(
+            get: {
+                return thirdPlacedCountries[groupName] ?? nil
+            },
+            set: { newValue in
+                thirdPlacedCountries[groupName] = newValue
+            }
+        )
+    }
+    
+    private func bindingForSecondPlacedCountry(groupName: String) -> Binding<Country?> {
+        return Binding<Country?>(
+            get: {
+                return secondPlacedTeams[groupName] ?? nil
+            },
+            set: { newValue in
+                secondPlacedTeams[groupName] = newValue
+            }
+        )
+    }
+    private func bindingForFirstPlacedCountry(groupName: String) -> Binding<Country?> {
+        return Binding<Country?>(
+            get: {
+                return firstPlacedTeams[groupName] ?? nil
+            },
+            set: { newValue in
+                firstPlacedTeams[groupName] = newValue
+            }
+        )
+    }
     
     var navBar: some View {
         ZStack {
