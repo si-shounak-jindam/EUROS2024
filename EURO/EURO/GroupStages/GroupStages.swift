@@ -84,8 +84,7 @@ struct GroupStages: View {
                                   secondPlacedCountry: bindingForSecondPlacedCountry(groupName: group.name.wrappedValue),
                                   firstPlacedCountry: bindingForFirstPlacedCountry(groupName: group.name.wrappedValue),
                                   allTeams: group.countries)
-                        .CFSDKcornerRadius(15, corners: .allCorners)
-                        .frame(height: 350)
+                        
                         .padding()
                 }
                 ThirdPlaceView(thirdPlacedCountries: $thirdPlacedCountries,

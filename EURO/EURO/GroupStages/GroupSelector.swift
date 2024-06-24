@@ -45,12 +45,14 @@ struct GroupSelector: View {
                     .background (
                         FANTASYTheme.getColor(named: .groupHeaderBlue)
                     )
+                    .CFSDKcornerRadius(20, corners: [.topLeft, .topRight])
             } else {
                 headerView
                     .padding(.vertical, 16)
                     .background (
                         FANTASYTheme.getColor(named: .groupHeaderBlue)
                     )
+                    .CFSDKcornerRadius(20, corners: [.topLeft, .topRight])
             }
             emptyGroup
         }
@@ -115,12 +117,12 @@ struct GroupSelector: View {
                 .padding(.bottom, 10)
                 .padding(.horizontal, 40)
                 Text("Drag teams to re-order")
+                    .padding(.horizontal, 20)
                     .foregroundColor(.cfsdkWhite)
             }
             FANTASYTheme.getImage(named: .Pattern)?
                 .resizable()
                 .scaledToFit()
-                .frame(width: 150, height: 100)
         }
     }
     
@@ -133,8 +135,14 @@ struct GroupSelector: View {
                             .foregroundColor(.cfsdkWhite)
                         Image(countries[index].imageName)
                             .resizable()
-                            .frame(width: 25, height: 25)
-                            .clipShape(Circle())
+                            .frame(width: 35, height: 35)
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(25)
+                            .overlay(
+                                countries[index].imageName != "" ? RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color.white, lineWidth: 2) : nil
+                            )
+                            .padding(.vertical,2.5)
                         Text(countries[index].name)
                             .foregroundColor(.cfsdkWhite)
                     }
@@ -148,6 +156,8 @@ struct GroupSelector: View {
                 }
                 .listRowBackground(FANTASYTheme.getColor(named: .CFSDKPrimary3))
             }
+            .frame(height: 310)
+            .CFSDKcornerRadius(20, corners: [.bottomLeft, .bottomRight])
             .environment(\.editMode, .constant(countries.contains(where: { !$0.name.isEmpty }) ? EditMode.active : EditMode.inactive))
             .listStyle(PlainListStyle())
         }
