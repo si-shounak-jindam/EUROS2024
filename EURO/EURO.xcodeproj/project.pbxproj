@@ -22,6 +22,9 @@
 		921EACEB2C294E820032BA45 /* ScrollOffsetPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACEA2C294E820032BA45 /* ScrollOffsetPreferenceKey.swift */; };
 		921EACED2C2953C50032BA45 /* SponsorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACEC2C2953C50032BA45 /* SponsorView.swift */; };
 		921EACEF2C2954100032BA45 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACEE2C2954100032BA45 /* NavigationBar.swift */; };
+		921EACF12C2988C00032BA45 /* KnockoutPOC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACF02C2988C00032BA45 /* KnockoutPOC+Ext.swift */; };
+		921EACF32C2989170032BA45 /* KnockoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACF22C2989170032BA45 /* KnockoutModel.swift */; };
+		921EACF72C29A8AF0032BA45 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EACF62C29A8AF0032BA45 /* GroupsView.swift */; };
 		926469232C109C5800C2926B /* ThirdPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469222C109C5800C2926B /* ThirdPlaceView.swift */; };
 		926469252C11901600C2926B /* GroupStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469242C11901600C2926B /* GroupStages.swift */; };
 		9264692A2C11DC1700C2926B /* CFSDKColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926469292C11DC1700C2926B /* CFSDKColorName.swift */; };
@@ -85,6 +88,9 @@
 		921EACEA2C294E820032BA45 /* ScrollOffsetPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetPreferenceKey.swift; sourceTree = "<group>"; };
 		921EACEC2C2953C50032BA45 /* SponsorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorView.swift; sourceTree = "<group>"; };
 		921EACEE2C2954100032BA45 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		921EACF02C2988C00032BA45 /* KnockoutPOC+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KnockoutPOC+Ext.swift"; sourceTree = "<group>"; };
+		921EACF22C2989170032BA45 /* KnockoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnockoutModel.swift; sourceTree = "<group>"; };
+		921EACF62C29A8AF0032BA45 /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		926469222C109C5800C2926B /* ThirdPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPlaceView.swift; sourceTree = "<group>"; };
 		926469242C11901600C2926B /* GroupStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStages.swift; sourceTree = "<group>"; };
 		926469292C11DC1700C2926B /* CFSDKColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFSDKColorName.swift; sourceTree = "<group>"; };
@@ -143,19 +149,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		921EACC32C1ACEDD0032BA45 /* groups */ = {
-			isa = PBXGroup;
-			children = (
-				92A99FB42C0DD699005CA5C2 /* GroupSelector.swift */,
-				921EACCC2C1AE3670032BA45 /* GroupSelectorViewModel.swift */,
-				926469242C11901600C2926B /* GroupStages.swift */,
-				921EACBB2C198AD60032BA45 /* ProgressBar.swift */,
-				921EACEC2C2953C50032BA45 /* SponsorView.swift */,
-				921EACEE2C2954100032BA45 /* NavigationBar.swift */,
-			);
-			path = groups;
-			sourceTree = "<group>";
-		};
 		921EACD22C1B34D00032BA45 /* ScoreSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,7 +250,13 @@
 		92A99FB82C0DD818005CA5C2 /* GroupStages */ = {
 			isa = PBXGroup;
 			children = (
-				921EACC32C1ACEDD0032BA45 /* groups */,
+				92A99FB42C0DD699005CA5C2 /* GroupSelector.swift */,
+				921EACCC2C1AE3670032BA45 /* GroupSelectorViewModel.swift */,
+				926469242C11901600C2926B /* GroupStages.swift */,
+				921EACF62C29A8AF0032BA45 /* GroupsView.swift */,
+				921EACBB2C198AD60032BA45 /* ProgressBar.swift */,
+				921EACEC2C2953C50032BA45 /* SponsorView.swift */,
+				921EACEE2C2954100032BA45 /* NavigationBar.swift */,
 				926469222C109C5800C2926B /* ThirdPlaceView.swift */,
 			);
 			path = GroupStages;
@@ -266,13 +265,15 @@
 		92A99FBB2C0EF649005CA5C2 /* KnockoutStages */ = {
 			isa = PBXGroup;
 			children = (
-				92A99FB92C0EF63F005CA5C2 /* KnockoutStages.swift */,
 				921EACD52C2016BF0032BA45 /* KnockoutPOC.swift */,
+				921EACF22C2989170032BA45 /* KnockoutModel.swift */,
+				921EACF02C2988C00032BA45 /* KnockoutPOC+Ext.swift */,
 				921EACE42C25720D0032BA45 /* MatchView.swift */,
 				921EACE62C25725A0032BA45 /* RadioButton.swift */,
-				921EACDD2C230B960032BA45 /* KnockoutPOC3.swift */,
 				921EACE82C294DE80032BA45 /* RoundManager.swift */,
 				921EACEA2C294E820032BA45 /* ScrollOffsetPreferenceKey.swift */,
+				92A99FB92C0EF63F005CA5C2 /* KnockoutStages.swift */,
+				921EACDD2C230B960032BA45 /* KnockoutPOC3.swift */,
 			);
 			path = KnockoutStages;
 			sourceTree = "<group>";
@@ -422,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921EACF12C2988C00032BA45 /* KnockoutPOC+Ext.swift in Sources */,
 				921EACCD2C1AE3670032BA45 /* GroupSelectorViewModel.swift in Sources */,
 				92A99FCA2C0F0717005CA5C2 /* CFSDKDouble+Ext.swift in Sources */,
 				92A99FBD2C0EFD03005CA5C2 /* GameStarterView.swift in Sources */,
@@ -435,6 +437,7 @@
 				92A99FA92C0DD46A005CA5C2 /* PlayerCardLeadingBackground.swift in Sources */,
 				921EACBC2C198AD60032BA45 /* ProgressBar.swift in Sources */,
 				921EACEB2C294E820032BA45 /* ScrollOffsetPreferenceKey.swift in Sources */,
+				921EACF72C29A8AF0032BA45 /* GroupsView.swift in Sources */,
 				92A99FB52C0DD699005CA5C2 /* GroupSelector.swift in Sources */,
 				92A99FCB2C0F0717005CA5C2 /* CFSDKString+Ext.swift in Sources */,
 				921EACCF2C1B32B10032BA45 /* ScoreSheetViewModel.swift in Sources */,
@@ -456,6 +459,7 @@
 				92A99FB72C0DD7BB005CA5C2 /* FantasyTheme.swift in Sources */,
 				92A99F7B2C0DD2A4005CA5C2 /* EUROApp.swift in Sources */,
 				926469232C109C5800C2926B /* ThirdPlaceView.swift in Sources */,
+				921EACF32C2989170032BA45 /* KnockoutModel.swift in Sources */,
 				921EACE72C25725A0032BA45 /* RadioButton.swift in Sources */,
 				921EACEF2C2954100032BA45 /* NavigationBar.swift in Sources */,
 				921EACC02C198B4E0032BA45 /* CountryModel.swift in Sources */,

@@ -9,11 +9,15 @@ import SwiftUI
 
 struct ThirdPlaceView: View {
     
+    @EnvironmentObject var roundManager: RoundManager
+    
     @State private var selectedTeams: Set<String> = []
     @State private var showKnockoutSheet: Bool = false
     @State private var showKnockoutBracket: Bool = false
     
     @Binding var thirdPlacedCountries: [String: Country?]
+    @Binding var secondPlacedCountries: [String: Country?]
+    @Binding var firstPlacedCountries: [String: Country?]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -121,13 +125,10 @@ struct ThirdPlaceView: View {
             }
         }
         .fullScreenCover(isPresented: $showKnockoutBracket, content: {
-            KnockoutPOC()
+            KnockoutPOC(thirdPlacedCountries: $thirdPlacedCountries,
+                        secondPlacedCountries: $secondPlacedCountries,
+                        firstPlacedCountries: $thirdPlacedCountries)
         })
         .ignoresSafeArea()
     }
 }
-
-
-//#Preview {
-//    ThirdPlaceView()
-//}

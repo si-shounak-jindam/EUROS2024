@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var roundManager = RoundManager()
     var body: some View {
         GameStarterView()
+            .environmentObject(roundManager)
     }
 }
 
