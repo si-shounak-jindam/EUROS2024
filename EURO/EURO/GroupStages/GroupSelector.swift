@@ -84,6 +84,10 @@ struct GroupSelector: View {
                         }, label: {
                             if allTeams[index].isSelected {
                                 Image(systemName: "circle.fill")
+                                    .resizable()
+                                    .frame(width: 36, height: 36)
+                                    .clipShape(Circle())
+                                
                             } else {
                                 Image(allTeams[index].imageName)
                                     .resizable()
