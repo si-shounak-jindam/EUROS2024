@@ -17,11 +17,9 @@ struct GroupSelector: View {
     
     @StateObject var scoreSheetViewModel = ScoreSheetViewModel()
     
-    
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showBottomSheet: Bool = false
-    
     
     @State private var countries: [Country] = [
         Country(name: "", imageName: ""),
@@ -31,7 +29,6 @@ struct GroupSelector: View {
     ]
     
     @State private var editMode: EditMode = .active
-    
     
     @Binding var allTeams: [Country]
     @State private var popularTeamPrediction: [Country] = [
@@ -56,17 +53,14 @@ struct GroupSelector: View {
                     )
             }
             emptyGroup
-              
         }
         .environment(\.editMode, $editMode)
         .onChange(of: countries) { _ in
-                    updateThirdPlacedCountry()
-                    updateFirstPlacedCountry()
-                    updateSecondPlacedCountry()
-                }
+            updatePlacedCountries()
+        }
     }
     
-    //MARK: - VIEWS
+    // MARK: - VIEWS
     
     var headerView: some View {
         VStack(spacing: 0) {
@@ -139,7 +133,6 @@ struct GroupSelector: View {
                             .clipShape(Circle())
                         Text(countries[index].name)
                             .foregroundColor(.cfsdkWhite)
-                        
                     }
                 }
                 .onMove(perform: move)
@@ -158,6 +151,7 @@ struct GroupSelector: View {
     
     func move(indices: IndexSet, newOffset: Int) {
         countries.move(fromOffsets: indices, toOffset: newOffset)
+        updatePlacedCountries()
     }
     
     func addCountryIfNeeded(_ country: Country) {
@@ -171,21 +165,15 @@ struct GroupSelector: View {
         }
     }
     
-    func updateThirdPlacedCountry() {
+    func updatePlacedCountries() {
+        if countries.count >= 1 {
+            firstPlacedCountry = countries[0]
+        }
+        if countries.count >= 2 {
+            secondPlacedCountry = countries[1]
+        }
         if countries.count >= 3 {
             thirdPlacedCountry = countries[2]
-        }   
-    }
-    
-    func updateFirstPlacedCountry() {
-        if countries.count >= 1 {
-            thirdPlacedCountry = countries[0]
-        }
-    }
-    
-    func updateSecondPlacedCountry() {
-        if countries.count >= 2 {
-            thirdPlacedCountry = countries[1]
         }
     }
     
@@ -202,68 +190,67 @@ struct GroupSelector: View {
         })
     }
     
-    
     var bottomSheet: some View {
         VStack(spacing: 0) {
             Spacer()
-            VStack() {
-                    HStack {
-                        Text("Most popular Group \(groupName) prediction")
-                            .font(.subheadline)
-                            .foregroundColor(.cfsdkWhite)
-                            .padding([.top, .leading], 10)
-                        Spacer()
-                        Button(action: {
-                            showBottomSheet = false
-                        }, label: {
-                            Image(systemName: "xmark")
-                                .accentColor(.cfsdkWhite)
-                                .padding([.top, .trailing], 10)
-                        })
-                    }
-                    .background (
-                        FANTASYTheme.getColor(named: .groupSheetBlue)
-                    )
-                    VStack {
-                        ForEach(popularTeamPrediction.indices, id: \.self) { index in
-                            HStack {
-                                Text("\(index + 1)")
-                                    .foregroundColor(.cfsdkWhite)
-                                    .font(.subheadline)
-                                Image(popularTeamPrediction[index].imageName)
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .clipShape(Circle())
-                                Text(popularTeamPrediction[index].name)
-                                    .foregroundColor(.cfsdkWhite)
-                                Spacer()
-                            }
-                            .padding()
-                            Divider()
-                                .background (
-                                    Color.white.opacity(0.5)
-                                )
-                        }
-                        Divider()
-                        HStack{
-                            Button(action: {
-                                scoreSheetViewModel.showScoreSheet.toggle()
-                            }, label: {
-                                Text("See how to score points")
-                                    .foregroundColor(.cfsdkAccent1)
-                            })
-                            .padding()
+            VStack {
+                HStack {
+                    Text("Most popular Group \(groupName) prediction")
+                        .font(.subheadline)
+                        .foregroundColor(.cfsdkWhite)
+                        .padding([.top, .leading], 10)
+                    Spacer()
+                    Button(action: {
+                        showBottomSheet = false
+                    }, label: {
+                        Image(systemName: "xmark")
+                            .accentColor(.cfsdkWhite)
+                            .padding([.top, .trailing], 10)
+                    })
+                }
+                .background(
+                    FANTASYTheme.getColor(named: .groupSheetBlue)
+                )
+                VStack {
+                    ForEach(popularTeamPrediction.indices, id: \.self) { index in
+                        HStack {
+                            Text("\(index + 1)")
+                                .foregroundColor(.cfsdkWhite)
+                                .font(.subheadline)
+                            Image(popularTeamPrediction[index].imageName)
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .clipShape(Circle())
+                            Text(popularTeamPrediction[index].name)
+                                .foregroundColor(.cfsdkWhite)
                             Spacer()
                         }
-                        .sheet(isPresented: $scoreSheetViewModel.showScoreSheet, content: {
-                            ScorePointSheet()
-                                .clearModalBackground()
-                        })
+                        .padding()
+                        Divider()
+                            .background(
+                                Color.white.opacity(0.5)
+                            )
                     }
-                    
+                    Divider()
+                    HStack {
+                        Button(action: {
+                            scoreSheetViewModel.showScoreSheet.toggle()
+                        }, label: {
+                            Text("See how to score points")
+                                .foregroundColor(.cfsdkAccent1)
+                        })
+                        .padding()
+                        Spacer()
+                    }
+                    .sheet(isPresented: $scoreSheetViewModel.showScoreSheet, content: {
+                        ScorePointSheet()
+                            .clearModalBackground()
+                    })
                 }
+            }
             .background(FANTASYTheme.getColor(named: .groupSheetBlue))
         }
         .edgesIgnoringSafeArea(.bottom)
     }
 }
+

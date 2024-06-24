@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Country: Identifiable, Equatable {
+struct Country: Identifiable, Equatable, Hashable {
     let id = UUID()
     let name: String
     let imageName: String

@@ -7,21 +7,6 @@
 
 import SwiftUI
 
-//struct Match: Hashable {
-//    let id = UUID()
-//    var team1: Country?
-//    var team2: Country?
-//    
-//    static func == (lhs: Match, rhs: Match) -> Bool {
-//        lhs.id == rhs.id
-//    }
-//    
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(id)
-//    }
-//}
-
-
 struct MatchView: View {
     let showLeftLine: Bool
     let showRightLine: Bool

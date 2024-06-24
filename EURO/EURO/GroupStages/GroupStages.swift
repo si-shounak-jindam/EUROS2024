@@ -14,39 +14,21 @@ struct Groups: Equatable {
 
 struct GroupStages: View {
     
+    @StateObject private var roundManager = RoundManager()
+    
     @State private var progress: Double = 0
-    @State private var groups: [Groups] = [.init(name: "A", countries:                                                       Countries.groupA),
+    @State private var groups: [Groups] = [.init(name: "A", countries: Countries.groupA),
                                            .init(name: "B", countries: Countries.groupB),
                                            .init(name: "C", countries: Countries.groupC),
                                            .init(name: "D", countries: Countries.groupD),
                                            .init(name: "E", countries: Countries.groupE),
                                            .init(name: "F", countries: Countries.groupF)
-                                           
     ]
     
     @State private var thirdPlacedCountries: [String: Country?] = ["A": nil, "B": nil, "C": nil, "D": nil, "E": nil, "F": nil]
+    @State private var firstPlacedCountries: [String: Country?] = ["A": nil, "B": nil, "C": nil, "D": nil, "E": nil, "F": nil]
+    @State private var secondPlacedCountries: [String: Country?] = ["A": nil, "B": nil, "C": nil, "D": nil, "E": nil, "F": nil]
     
-    @State private var firstPlacedTeams: [String: Country] = [:]
-    @State private var secondPlacedTeams: [String: Country] = [:]
-    
-    private func updatePlacedTeams() {
-        var firstTeams = [String: Country]()
-        var secondTeams = [String: Country]()
-        
-        for group in groups {
-            if let firstCountry = group.countries.first {
-                firstTeams[group.name] = firstCountry
-            }
-            if group.countries.count > 1 {
-                secondTeams[group.name] = group.countries[1]
-            }
-        }
-        
-        firstPlacedTeams = firstTeams
-        secondPlacedTeams = secondTeams
-    }
-        
-
     
     var body: some View {
         ZStack {
@@ -54,10 +36,10 @@ struct GroupStages: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                navBar
+                NavigationBar()
                     .edgesIgnoringSafeArea(.top)
                     .frame(height: 80)
-                sponsorImage
+                SponsorView()
                 ProgressBar(progress: $progress)
                 groupsView
             }
@@ -70,6 +52,28 @@ struct GroupStages: View {
         }
     }
     
+    private func updatePlacedTeams() {
+        var firstTeams = [String: Country]()
+        var secondTeams = [String: Country]()
+        var thirdTeams = [String: Country]()
+        
+        for group in groups {
+            if let firstCountry = group.countries.first {
+                firstTeams[group.name] = firstCountry
+            }
+            if group.countries.count > 1 {
+                secondTeams[group.name] = group.countries[1]
+            }
+            if group.countries.count > 2 {
+                thirdTeams[group.name] = group.countries[2]
+            }
+        }
+        
+        firstPlacedCountries = firstTeams
+        secondPlacedCountries = secondTeams
+        thirdPlacedCountries = thirdTeams
+    }
+    
     var groupsView: some View {
         ScrollView {
             VStack {
@@ -78,13 +82,15 @@ struct GroupStages: View {
                                   progress: $progress,
                                   thirdPlacedCountry: bindingForThirdPlacedCountry(groupName: group.name.wrappedValue),
                                   secondPlacedCountry: bindingForSecondPlacedCountry(groupName: group.name.wrappedValue),
-                                  firstPlacedCountry: bindingForThirdPlacedCountry(groupName: group.name.wrappedValue),
-                                     allTeams: group.countries)
+                                  firstPlacedCountry: bindingForFirstPlacedCountry(groupName: group.name.wrappedValue),
+                                  allTeams: group.countries)
                         .CFSDKcornerRadius(15, corners: .allCorners)
                         .frame(height: 350)
                         .padding()
                 }
-                ThirdPlaceView(thirdPlacedCountries: $thirdPlacedCountries)
+                ThirdPlaceView(thirdPlacedCountries: $thirdPlacedCountries,
+                               secondPlacedCountries:$secondPlacedCountries,
+                               firstPlacedCountries: $firstPlacedCountries)
                     .padding()
             }
         }
@@ -104,60 +110,23 @@ struct GroupStages: View {
     private func bindingForSecondPlacedCountry(groupName: String) -> Binding<Country?> {
         return Binding<Country?>(
             get: {
-                return secondPlacedTeams[groupName] ?? nil
+                return secondPlacedCountries[groupName] ?? nil
             },
             set: { newValue in
-                secondPlacedTeams[groupName] = newValue
+                secondPlacedCountries[groupName] = newValue
             }
         )
     }
+    
     private func bindingForFirstPlacedCountry(groupName: String) -> Binding<Country?> {
         return Binding<Country?>(
             get: {
-                return firstPlacedTeams[groupName] ?? nil
+                return firstPlacedCountries[groupName] ?? nil
             },
             set: { newValue in
-                firstPlacedTeams[groupName] = newValue
+                firstPlacedCountries[groupName] = newValue
             }
         )
-    }
-    
-    var navBar: some View {
-        ZStack {
-            FANTASYTheme.getImage(named: .Pattern)?
-                .resizable()
-                .scaledToFill()
-                .frame(height: 130)
-                .clipped()
-            HStack {
-                Button(action: {
-                    
-                }, label: {
-                    FANTASYTheme.getImage(named: .BackChev)?
-                        .padding()
-                       
-                })
-                Spacer()
-                Button(action: {
-                    
-                }, label: {
-                    FANTASYTheme.getImage(named: .threeLines)?
-                        .padding()
-                       
-                })
-                
-            }
-            .padding(.top, 80)
-                
-        }
-    }
-    
-    var sponsorImage: some View {
-        FANTASYTheme.getImage(named: .VisitQatar)?
-            .resizable()
-            .scaledToFit()
-            .padding(.horizontal, 40)
-            .padding(.vertical, 10)
     }
 }
 
@@ -207,3 +176,4 @@ extension GroupStages {
 #Preview {
     GroupStages()
 }
+
