@@ -10,9 +10,15 @@ import SwiftUI
 struct RadioButton: View {
     @Binding var selectedOption: String
     var teamName: String
+    var teamFlag: String
 
     var body: some View {
         HStack {
+            Image(teamFlag)
+                .resizable()
+                .frame(width: 30, height: 30)
+                .background(Color.gray.opacity(0.5))
+                .clipShape(Circle())
             Text(teamName)
                 .font(.headline)
                 .foregroundColor(.white)
@@ -28,8 +34,10 @@ struct RadioButton: View {
                 .onTapGesture {
                     if selectedOption == teamName {
                         self.selectedOption = ""
+                        self.selectedOption = ""
                     } else {
                         self.selectedOption = teamName
+                        self.selectedOption = teamFlag
                     }
                 }
         )
