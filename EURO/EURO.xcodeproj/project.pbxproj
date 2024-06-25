@@ -251,13 +251,13 @@
 			isa = PBXGroup;
 			children = (
 				92A99FB42C0DD699005CA5C2 /* GroupSelector.swift */,
-				921EACCC2C1AE3670032BA45 /* GroupSelectorViewModel.swift */,
 				926469242C11901600C2926B /* GroupStages.swift */,
+				926469222C109C5800C2926B /* ThirdPlaceView.swift */,
 				921EACF62C29A8AF0032BA45 /* GroupsView.swift */,
 				921EACBB2C198AD60032BA45 /* ProgressBar.swift */,
 				921EACEC2C2953C50032BA45 /* SponsorView.swift */,
 				921EACEE2C2954100032BA45 /* NavigationBar.swift */,
-				926469222C109C5800C2926B /* ThirdPlaceView.swift */,
+				921EACCC2C1AE3670032BA45 /* GroupSelectorViewModel.swift */,
 			);
 			path = GroupStages;
 			sourceTree = "<group>";

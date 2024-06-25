@@ -41,6 +41,7 @@ struct ThirdPlaceView: View {
         }
         .sheet(isPresented: $showKnockoutSheet) {
             knockoutStageBottomSheet
+                .clearModalBackground()
 //                .presentationCornerRadius(20)
 //                .presentationDetents([.fraction(0.2)])
 //                .presentationDragIndicator(.hidden)

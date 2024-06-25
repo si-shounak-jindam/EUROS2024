@@ -15,6 +15,7 @@ struct Matches: Hashable {
 
 struct Team: Hashable {
     var name: String
+    var teamFlag: String
 }
 
 struct MatchSet {
