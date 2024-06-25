@@ -9,17 +9,15 @@ import SwiftUI
 
 struct RadioButton: View {
     @Binding var selectedOption: String
-    var label: String?
+    var teamName: String
 
     var body: some View {
-        HStack(alignment: .center) {
-            if let label = label {
-                Text(label)
-                    .font(.headline)
-                    .foregroundColor(.white)
-            }
+        HStack {
+            Text(teamName)
+                .font(.headline)
+                .foregroundColor(.white)
             Spacer()
-            Image(systemName: selectedOption == label ? "largecircle.fill.circle" : "circle")
+            Image(systemName: selectedOption == teamName ? selectedOption.isEmpty ? "circle" : "largecircle.fill.circle" : "circle")
                 .resizable()
                 .frame(width: 20, height: 20)
                 .foregroundColor(.yellow)
@@ -28,10 +26,10 @@ struct RadioButton: View {
         .background(
             Color.black.opacity(0.01)
                 .onTapGesture {
-                    if selectedOption == label {
-                        self.selectedOption = String()
+                    if selectedOption == teamName {
+                        self.selectedOption = ""
                     } else {
-                        self.selectedOption = self.label ?? String()
+                        self.selectedOption = teamName
                     }
                 }
         )

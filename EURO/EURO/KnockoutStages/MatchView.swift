@@ -19,9 +19,9 @@ struct MatchView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: .zero) {
-            RadioButton(selectedOption: $teamOneSelection, label: match.team1?.name)
+            RadioButton(selectedOption: $teamOneSelection, teamName: match.team1?.name ?? "")
             Color.white.frame(height: 0.5)
-            RadioButton(selectedOption: $teamTwoSelection, label: match.team2?.name)
+            RadioButton(selectedOption: $teamTwoSelection, teamName: match.team2?.name ?? "")
             Color.white.frame(height: 0.5)
             Button(action: {
                 // Action for view details
@@ -66,3 +66,6 @@ struct MatchView: View {
         .frame(width: 325)
     }
 }
+
+
+
