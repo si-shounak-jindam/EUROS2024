@@ -87,7 +87,8 @@ struct GroupStages: View {
                         
                         .padding()
                 }
-                ThirdPlaceView(thirdPlacedCountries: $thirdPlacedCountries,
+                ThirdPlaceView(progress: $progress, 
+                               thirdPlacedCountries: $thirdPlacedCountries,
                                secondPlacedCountries:$secondPlacedCountries,
                                firstPlacedCountries: $firstPlacedCountries)
                     .padding()
@@ -132,42 +133,42 @@ struct GroupStages: View {
 extension GroupStages {
     enum Countries {
         static let groupA: [Country] = [
-            Country(name: "Germany", imageName: "germany"),
-            Country(name: "Scotland", imageName: "scotland"),
-            Country(name: "Hungary", imageName: "hungary"),
-            Country(name: "Switzerland", imageName: "switzerland")
+            Country(name: "Germany", imageName: "Germany"),
+            Country(name: "Scotland", imageName: "Scotland"),
+            Country(name: "Hungary", imageName: "Hungary"),
+            Country(name: "Switzerland", imageName: "Switzerland")
         ]
         
         static let groupB: [Country] = [
-            Country(name: "Spain", imageName: "spain"),
-            Country(name: "Croatia", imageName: "croatia"),
-            Country(name: "Italy", imageName: "italy"),
-            Country(name: "Albania", imageName: "albania")
+            Country(name: "Spain", imageName: "Spain"),
+            Country(name: "Croatia", imageName: "Croatia"),
+            Country(name: "Italy", imageName: "Italy"),
+            Country(name: "Albania", imageName: "Albania")
         ]
         static let groupC: [Country] = [
-            Country(name: "Slovenia", imageName: "slovenia"),
-            Country(name: "England", imageName: "england"),
-            Country(name: "Serbia", imageName: "serbia"),
-            Country(name: "Denmark", imageName: "denmark"),
+            Country(name: "Slovenia", imageName: "Slovenia"),
+            Country(name: "England", imageName: "England"),
+            Country(name: "Serbia", imageName: "Serbia"),
+            Country(name: "Denmark", imageName: "Denmark"),
         ]
         static let groupD: [Country] = [
-            Country(name: "Netherlands", imageName: "netherlands"),
-            Country(name: "France", imageName: "france"),
-            Country(name: "Poland", imageName: "poland"),
-            Country(name: "Austria", imageName: "austria")
+            Country(name: "Netherlands", imageName: "Netherlands"),
+            Country(name: "France", imageName: "France"),
+            Country(name: "Poland", imageName: "Poland"),
+            Country(name: "Austria", imageName: "Austria")
         ]
         static let groupE: [Country] = [
-            Country(name: "Ukraine", imageName: "ukraine"),
-            Country(name: "Slovakia", imageName: "slovakia"),
-            Country(name: "Belgium", imageName: "belgium"),
-            Country(name: "Romania", imageName: "romania")
+            Country(name: "Ukraine", imageName: "Ukraine"),
+            Country(name: "Slovakia", imageName: "Slovakia"),
+            Country(name: "Belgium", imageName: "Belgium"),
+            Country(name: "Romania", imageName: "Romania")
         ]
         
         static let groupF: [Country] = [
-            Country(name: "Turkey", imageName: "turkey"),
-            Country(name: "Portugal", imageName: "portugal"),
-            Country(name: "Georgia", imageName: "georgia"),
-            Country(name: "Czechia", imageName: "czechia")
+            Country(name: "Turkey", imageName: "Turkey"),
+            Country(name: "Portugal", imageName: "Portugal"),
+            Country(name: "Georgia", imageName: "Georgia"),
+            Country(name: "Czechia", imageName: "Czechia")
         ]
     }
 }

@@ -35,7 +35,7 @@ struct GroupsView: View {
                         .frame(height: 350)
                         .padding()
                 }
-                ThirdPlaceView(thirdPlacedCountries: $thirdPlacedCountries,
+                ThirdPlaceView(progress: $progress, thirdPlacedCountries: $thirdPlacedCountries,
                                secondPlacedCountries:$secondPlacedCountries,
                                firstPlacedCountries: $firstPlacedCountries)
                     .padding()

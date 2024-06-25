@@ -15,6 +15,7 @@ struct ThirdPlaceView: View {
     @State private var showKnockoutSheet: Bool = false
     @State private var showKnockoutBracket: Bool = false
     
+    @Binding var progress: Double
     @Binding var thirdPlacedCountries: [String: Country?]
     @Binding var secondPlacedCountries: [String: Country?]
     @Binding var firstPlacedCountries: [String: Country?]
@@ -131,7 +132,8 @@ struct ThirdPlaceView: View {
         }
         .fullScreenCover(isPresented: $showKnockoutBracket, content: {
             KnockoutPOC(thirdPlacedCountries: $thirdPlacedCountries,
-                        secondPlacedCountries: $secondPlacedCountries,
+                        secondPlacedCountries: $secondPlacedCountries, 
+                        progress: $progress,
                         firstPlacedCountries: $thirdPlacedCountries)
         })
         .ignoresSafeArea()
