@@ -69,7 +69,9 @@ struct ThirdPlaceView: View {
     
     var teamsWithThirdPlace: some View {
         VStack(spacing: 0) {
-            ForEach(thirdPlacedCountries.keys.sorted(), id: \.self) { groupName in
+            let sortedGroupNames = thirdPlacedCountries.keys.sorted()
+            
+            ForEach(Array(sortedGroupNames.enumerated()), id: \.element) { index, groupName in
                 if let country = thirdPlacedCountries[groupName] {
                     HStack {
                         Button(action: {
@@ -79,7 +81,7 @@ struct ThirdPlaceView: View {
                                 selectedTeams.insert(country?.name ?? .blank)
                             }
                         }) {
-                            Image(systemName: selectedTeams.contains(country?.name ?? .blank) ? "circle.fill" : "circle")
+                            Image(systemName: selectedTeams.contains(country?.name ?? .blank) ? "checkmark.circle.fill" : "circle")
                                 .foregroundColor(.white)
                         }
                         Image(country?.imageName ?? .blank)
@@ -94,8 +96,10 @@ struct ThirdPlaceView: View {
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 10)
-                    Divider()
-                        .background(Color.white)
+                    if index != sortedGroupNames.count - 1 {
+                        Divider()
+                            .background(Color.white)
+                    }
                 }
             }
         }
@@ -130,5 +134,19 @@ struct ThirdPlaceView: View {
                         firstPlacedCountries: $thirdPlacedCountries)
         })
         .ignoresSafeArea()
+    }
+}
+
+
+struct CheckboxToggleStyle: ToggleStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        
+        HStack {
+            Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "")
+                .resizable()
+                .foregroundColor(configuration.isOn ? .white : .white.opacity(0.5))
+                .frame(width: 25, height: 25)
+                .onTapGesture { configuration.isOn.toggle() }
+        }
     }
 }
